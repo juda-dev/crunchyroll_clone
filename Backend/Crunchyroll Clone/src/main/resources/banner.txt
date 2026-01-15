@@ -1,0 +1,9 @@
+${AnsiColor.RED}            (            (                
+${AnsiColor.BRIGHT_RED}           )\ )         )\ )             
+${AnsiColor.RED}   (    ( ${AnsiColor.BRIGHT_YELLOW}(()/(${AnsiColor.RED}     )  ${AnsiColor.YELLOW}(()/(${AnsiColor.RED}    (   )    
+${AnsiColor.BRIGHT_RED}   )\  ))\ ${AnsiColor.BRIGHT_YELLOW}/(_))${AnsiColor.BRIGHT_RED} ( /(   ${AnsiColor.YELLOW}/(_))${AnsiColor.BRIGHT_RED}  ))\ /((   
+${AnsiColor.BRIGHT_YELLOW}  ((_)${AnsiColor.YELLOW}/((_${AnsiColor.BRIGHT_RED}|_))_${AnsiColor.BRIGHT_YELLOW}  )(_))${AnsiColor.YELLOW} (_))_${AnsiColor.BRIGHT_RED}  /((_|_))\  
+${AnsiColor.BRIGHT_WHITE} _ | (_))( |   \((_)_   |   \(_)) _)((_) 
+${AnsiColor.BRIGHT_WHITE}| || | || || |) / _` |  | |) / -_)\ V /  
+${AnsiColor.BRIGHT_WHITE} \__/ \_,_||___/\__,_|  |___/\___| \_/   
+${AnsiColor.DEFAULT}
