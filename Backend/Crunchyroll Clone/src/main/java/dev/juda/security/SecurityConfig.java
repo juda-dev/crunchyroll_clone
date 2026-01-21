@@ -36,7 +36,8 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .cors(cors -> {})
+                .cors(cors -> {
+                })
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
@@ -52,13 +53,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    AuthenticationProvider authenticationProvider( /*UserDetailsService userDetailsService*/ ){
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+    AuthenticationProvider authenticationProvider( /*UserDetailsService userDetailsService*/) {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider(/*userDetailsService*/);
         authenticationProvider.setPasswordEncoder(this.passwordEncoder());
 
         return authenticationProvider;
