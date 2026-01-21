@@ -2,6 +2,7 @@ package dev.juda.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dev.juda.util.ApiPaths;
 import jakarta.persistence.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -61,7 +62,7 @@ public class VideoEntity {
     public String getSrc() {
         if (srcUuid != null && !srcUuid.isEmpty()) {
             String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-            return baseUrl + "/videos/srcs/" + srcUuid;
+            return baseUrl + ApiPaths.VIDEO_SOURCES + srcUuid;
         }
         return null;
     }
@@ -70,7 +71,7 @@ public class VideoEntity {
     public String getPoster() {
         if (posterUuid != null && !posterUuid.isEmpty()) {
             String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-            return baseUrl + "/videos/posters/" + posterUuid;
+            return baseUrl + ApiPaths.VIDEO_POSTERS + posterUuid;
         }
         return null;
     }
