@@ -1,5 +1,6 @@
 package dev.juda.service;
 
+import dev.juda.model.dto.request.UserLoginRequest;
 import dev.juda.model.dto.request.UserRegistrationRequest;
 import dev.juda.model.dto.response.EmailValidationResponse;
 import dev.juda.model.dto.response.LoginResponse;
@@ -9,7 +10,7 @@ import jakarta.validation.Valid;
 public interface AuthService {
     MessageResponse signup(@Valid UserRegistrationRequest request);
 
-    LoginResponse login(String email, String password);
+    LoginResponse login(@Valid UserLoginRequest request);
 
     EmailValidationResponse validateEmail(String email);
 

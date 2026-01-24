@@ -2,6 +2,7 @@ package dev.juda.service.impl;
 
 import dev.juda.exception.*;
 import dev.juda.mapper.UserMapper;
+import dev.juda.model.dto.request.UserLoginRequest;
 import dev.juda.model.dto.request.UserRegistrationRequest;
 import dev.juda.model.dto.response.EmailValidationResponse;
 import dev.juda.model.dto.response.LoginResponse;
@@ -56,9 +57,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional(readOnly = true)
     @Override
-    public LoginResponse login(String email, String password) {
-        UserEntity userEntity = userRepository.findByEmail(email)
-                .filter(u -> passwordEncoder.matches(password, u.getPassword()))
+    public LoginResponse login(UserLoginRequest request) {
+        UserEntity userEntity = userRepository.findByEmail(request.email())
+                .filter(u -> passwordEncoder.matches(request.password(), u.getPassword()))
                 .orElseThrow(BadCredentialsException::new);
 
         if (!userEntity.getActive()) throw new AccountDeactivatedException();
@@ -66,11 +67,11 @@ public class AuthServiceImpl implements AuthService {
 
         String role = userEntity.getRole().getValue();
 
-        final String jwt = securityUtils.generatedToken(email, role);
+        final String jwt = securityUtils.generatedToken(request.email(), role);
 
         return new LoginResponse(
                 jwt,
-                email,
+                request.email(),
                 role
         );
     }
