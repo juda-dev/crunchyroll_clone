@@ -1,8 +1,6 @@
 package dev.juda.service;
 
-import dev.juda.model.dto.request.EmailRequest;
-import dev.juda.model.dto.request.UserLoginRequest;
-import dev.juda.model.dto.request.UserRegistrationRequest;
+import dev.juda.model.dto.request.*;
 import dev.juda.model.dto.response.EmailValidationResponse;
 import dev.juda.model.dto.response.LoginResponse;
 import dev.juda.model.dto.response.MessageResponse;
@@ -19,11 +17,11 @@ public interface AuthService {
 
     MessageResponse resendVerificationEmail(@Valid EmailRequest request);
 
-    MessageResponse forgotPassword(String email);
+    MessageResponse forgotPassword(@Valid EmailRequest request);
 
-    MessageResponse resetPassword(String token, String password);
+    MessageResponse resetPassword(@Valid ResetPasswordRequest request);
 
-    MessageResponse changePassword(String email, String currentPassword, String newPassword);
+    MessageResponse changePassword(@Valid ChangePasswordRequest request);
 
     LoginResponse currentUser(String email);
 }

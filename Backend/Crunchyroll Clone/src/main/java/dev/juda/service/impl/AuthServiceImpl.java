@@ -2,9 +2,7 @@ package dev.juda.service.impl;
 
 import dev.juda.exception.*;
 import dev.juda.mapper.UserMapper;
-import dev.juda.model.dto.request.EmailRequest;
-import dev.juda.model.dto.request.UserLoginRequest;
-import dev.juda.model.dto.request.UserRegistrationRequest;
+import dev.juda.model.dto.request.*;
 import dev.juda.model.dto.response.EmailValidationResponse;
 import dev.juda.model.dto.response.LoginResponse;
 import dev.juda.model.dto.response.MessageResponse;
@@ -120,8 +118,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     @Override
-    public MessageResponse forgotPassword(String email) {
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    public MessageResponse forgotPassword(EmailRequest request) {
+        UserEntity userEntity = userRepository.findByEmail(request.email()).orElseThrow(UserNotFoundException::new);
 
         String resetToken = UUID.randomUUID().toString();
 
@@ -137,14 +135,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     @Override
-    public MessageResponse resetPassword(String token, String password) {
-        UserEntity userEntity = userRepository.findByPasswordResetToken(token)
+    public MessageResponse resetPassword(ResetPasswordRequest request) {
+        UserEntity userEntity = userRepository.findByPasswordResetToken(request.token())
                 .orElseThrow(InvalidTokenException::new);
 
         if (userEntity.getPasswordResetToken() == null || userEntity.getPasswordResetTokenExpiry().isBefore(Instant.now()))
             throw new InvalidTokenException();
 
-        userEntity.setPassword(passwordEncoder.encode(password));
+        userEntity.setPassword(passwordEncoder.encode(request.newPassword()));
         userEntity.setPasswordResetToken(null);
         userEntity.setPasswordResetTokenExpiry(null);
 
@@ -155,13 +153,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     @Override
-    public MessageResponse changePassword(String email, String currentPassword, String newPassword) {
-        UserEntity userEntity = userRepository.findByEmail(email)
+    public MessageResponse changePassword(ChangePasswordRequest request) {
+        UserEntity userEntity = userRepository.findByEmail(request.email())
                 .orElseThrow(UserNotFoundException::new);
 
-        if (!passwordEncoder.matches(currentPassword, userEntity.getPassword())) throw new InvalidTokenException();
+        if (!passwordEncoder.matches(request.currentPassword(), userEntity.getPassword())) throw new InvalidTokenException();
 
-        userEntity.setPassword(passwordEncoder.encode(newPassword));
+        userEntity.setPassword(passwordEncoder.encode(request.newPassword()));
         userRepository.save(userEntity);
 
         return new MessageResponse("Password changed successfully.");

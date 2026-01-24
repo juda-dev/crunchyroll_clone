@@ -1,0 +1,11 @@
+package dev.juda.model.dto.request;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record ChangePasswordRequest(
+        @NotBlank String currentPassword,
+        @NotBlank String newPassword,
+        @Email @NotBlank String email
+        ) {
+}
