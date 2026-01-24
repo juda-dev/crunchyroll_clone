@@ -102,7 +102,7 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(RoleNotFoundException.class)
+    @ExceptionHandler(UserNotFoundException.class)
     public ErrorResponse handlerUserNotFoundException() {
         return new ErrorResponse(
                 USER_NOT_FOUND.getCode(),
