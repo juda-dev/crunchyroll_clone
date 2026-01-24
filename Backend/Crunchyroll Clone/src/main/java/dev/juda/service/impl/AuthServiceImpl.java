@@ -79,8 +79,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional(readOnly = true)
     @Override
-    public EmailValidationResponse validateEmail(EmailRequest request) {
-        boolean exists = userRepository.existsByEmail(request.email());
+    public EmailValidationResponse validateEmail(String email) {
+        boolean exists = userRepository.existsByEmail(email);
         return new EmailValidationResponse(exists, !exists);
     }
 
@@ -105,8 +105,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     @Override
-    public MessageResponse resendVerificationEmail(String email) {
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    public MessageResponse resendVerificationEmail(EmailRequest request) {
+        UserEntity userEntity = userRepository.findByEmail(request.email()).orElseThrow(UserNotFoundException::new);
 
         userEntity.setVerificationToken(UUID.randomUUID().toString());
         userEntity.setVerificationTokenExpiry(Instant.now().plusSeconds(86400));

@@ -13,11 +13,11 @@ public interface AuthService {
 
     LoginResponse login(@Valid UserLoginRequest request);
 
-    EmailValidationResponse validateEmail(@Valid EmailRequest request);
+    EmailValidationResponse validateEmail(String email);
 
     MessageResponse verifyEmail(String token);
 
-    MessageResponse resendVerificationEmail(String email);
+    MessageResponse resendVerificationEmail(@Valid EmailRequest request);
 
     MessageResponse forgotPassword(String email);
 
