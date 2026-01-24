@@ -8,7 +8,8 @@ public enum ErrorCatalog {
     INVALID_TOKEN("ERR_AUTH_005", "Invalid or expired verification token. Please request a new one."),
     INVALID_CREDENTIALS("ERR_AUTH_006", "Current password is incorrect"),
     GENERIC_ERROR("ERR_GEN_001", "An unexpected error"),
-    ROLE_NOT_FOUND("ERR_ROLE_001", "Role not found in the database")
+    ROLE_NOT_FOUND("ERR_ROLE_001", "Role not found in the database"),
+    USER_NOT_FOUND("ERR_USR_001", "User not found in the database")
     ;
 
     private final String code;

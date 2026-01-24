@@ -101,6 +101,18 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ErrorResponse handlerUserNotFoundException() {
+        return new ErrorResponse(
+                USER_NOT_FOUND.getCode(),
+                HttpStatus.NOT_FOUND,
+                USER_NOT_FOUND.getMessage(),
+                null,
+                LocalDateTime.now()
+        );
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
