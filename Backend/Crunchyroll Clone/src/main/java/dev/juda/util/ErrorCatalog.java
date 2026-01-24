@@ -7,6 +7,7 @@ public enum ErrorCatalog {
     EMAIL_NOT_VERIFIED("ERR_AUTH_004", "Please verify your email before login in. Check your inbox for the verification link."),
     INVALID_TOKEN("ERR_AUTH_005", "Invalid or expired verification token. Please request a new one."),
     INVALID_CREDENTIALS("ERR_AUTH_006", "Current password is incorrect"),
+    GENERIC_ERROR("ERR_GEN_001", "An unexpected error")
     ;
 
     private final String code;
