@@ -2,6 +2,7 @@ package dev.juda.service.impl;
 
 import dev.juda.exception.*;
 import dev.juda.mapper.UserMapper;
+import dev.juda.model.dto.request.EmailRequest;
 import dev.juda.model.dto.request.UserLoginRequest;
 import dev.juda.model.dto.request.UserRegistrationRequest;
 import dev.juda.model.dto.response.EmailValidationResponse;
@@ -78,8 +79,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional(readOnly = true)
     @Override
-    public EmailValidationResponse validateEmail(String email) {
-        boolean exists = userRepository.existsByEmail(email);
+    public EmailValidationResponse validateEmail(EmailRequest request) {
+        boolean exists = userRepository.existsByEmail(request.email());
         return new EmailValidationResponse(exists, !exists);
     }
 

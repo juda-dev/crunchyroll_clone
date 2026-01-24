@@ -1,5 +1,6 @@
 package dev.juda.service;
 
+import dev.juda.model.dto.request.EmailRequest;
 import dev.juda.model.dto.request.UserLoginRequest;
 import dev.juda.model.dto.request.UserRegistrationRequest;
 import dev.juda.model.dto.response.EmailValidationResponse;
@@ -12,7 +13,7 @@ public interface AuthService {
 
     LoginResponse login(@Valid UserLoginRequest request);
 
-    EmailValidationResponse validateEmail(String email);
+    EmailValidationResponse validateEmail(@Valid EmailRequest request);
 
     MessageResponse verifyEmail(String token);
 
