@@ -50,12 +50,35 @@ public class EmailServiceImpl implements EmailService {
             );
             throw new EmailNotVerifiedException();
         }
-
-
     }
 
     @Override
     public void sendPasswordResetEmail(String toEmail, String token) {
+        Context context = new Context();
+        context.setVariable(
+                "resetPasswordLink", frontendUrl + "/reset-password?token=" + token
+        );
 
+        String htmlContent = templateEngine.process("password-reset", context);
+
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            helper.setTo(toEmail);
+            helper.setSubject("JuDa Dev - Reset Your Password");
+            helper.setText(htmlContent, true);
+            mailSender.send(mimeMessage);
+
+            logger.info("Reset password email sent to {}", toEmail);
+        } catch (Exception ex) {
+            logger.error(
+                    "Failed to send reset password email to {}: {}",
+                    toEmail,
+                    ex.getMessage(),
+                    ex
+            );
+            throw new RuntimeException("Failed to send password reset email");
+        }
     }
 }
