@@ -39,6 +39,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (shouldProcessAuthentication(username)) {
             processAuthentication(request, jwt, username);
         }
+        
+        filterChain.doFilter(request, response);
     }
 
     private String extractJwt(HttpServletRequest request) {

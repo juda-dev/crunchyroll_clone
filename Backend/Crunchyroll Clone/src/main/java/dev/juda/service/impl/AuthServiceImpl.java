@@ -12,9 +12,11 @@ import dev.juda.repository.UserRepository;
 import dev.juda.service.AuthService;
 import dev.juda.service.EmailService;
 import dev.juda.util.SecurityUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -36,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
         this.securityUtils = securityUtils;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     @Override
     public MessageResponse signup(UserRegistrationRequest request) {
@@ -54,6 +57,7 @@ public class AuthServiceImpl implements AuthService {
         );
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @Transactional(readOnly = true)
     @Override
     public LoginResponse login(UserLoginRequest request) {
@@ -75,6 +79,7 @@ public class AuthServiceImpl implements AuthService {
         );
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @Transactional(readOnly = true)
     @Override
     public EmailValidationResponse validateEmail(String email) {
@@ -82,6 +87,7 @@ public class AuthServiceImpl implements AuthService {
         return new EmailValidationResponse(exists, !exists);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @Transactional
     @Override
     public MessageResponse verifyEmail(String token) {
@@ -101,6 +107,7 @@ public class AuthServiceImpl implements AuthService {
         return new MessageResponse("Email verified successfully! you can now login.");
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @Transactional
     @Override
     public MessageResponse resendVerificationEmail(EmailRequest request) {
@@ -116,6 +123,7 @@ public class AuthServiceImpl implements AuthService {
         return new MessageResponse("Verification email resent successfully! Please check your inbox.");
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @Transactional
     @Override
     public MessageResponse forgotPassword(EmailRequest request) {
@@ -133,6 +141,7 @@ public class AuthServiceImpl implements AuthService {
         return new MessageResponse("Password reset email sent successfully! Please check your inbox.");
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @Transactional
     @Override
     public MessageResponse resetPassword(ResetPasswordRequest request) {
@@ -151,6 +160,7 @@ public class AuthServiceImpl implements AuthService {
         return new MessageResponse("Password reset successfully. You can now log in with your new password.");
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @Transactional
     @Override
     public MessageResponse changePassword(ChangePasswordRequest request) {
@@ -165,6 +175,7 @@ public class AuthServiceImpl implements AuthService {
         return new MessageResponse("Password changed successfully.");
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @Transactional(readOnly = true)
     @Override
     public LoginResponse currentUser(String email) {

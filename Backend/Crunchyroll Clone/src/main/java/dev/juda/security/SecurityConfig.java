@@ -26,7 +26,13 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private static final String[] PUBLIC_ENDPOINTS = {
-
+            "/auth/login",
+            "/auth/signup",
+            "/auth/validate-email",
+            "/auth/verify-email",
+            "/auth/resend-verification",
+            "/auth/forgot-password",
+            "/auth/reset-password"
     };
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
@@ -42,7 +48,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
-                        .anyRequest().denyAll()
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

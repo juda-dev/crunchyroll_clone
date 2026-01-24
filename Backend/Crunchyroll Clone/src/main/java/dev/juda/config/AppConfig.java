@@ -15,7 +15,7 @@ public class AppConfig {
     @Bean
     ITemplateResolver iTemplateResolver(){
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
-        resolver.setPrefix("templates/mails");
+        resolver.setPrefix("templates/mails/");
         resolver.setSuffix(".html");
         resolver.setTemplateMode(TemplateMode.HTML);
         resolver.setCharacterEncoding(StandardCharsets.UTF_8.name());

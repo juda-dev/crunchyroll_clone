@@ -1,4 +1,4 @@
-package dev.juda.security;
+ package dev.juda.security;
 
 import dev.juda.mapper.UserMapper;
 import dev.juda.repository.UserRepository;

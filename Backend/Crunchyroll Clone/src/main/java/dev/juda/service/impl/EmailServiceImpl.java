@@ -59,7 +59,7 @@ public class EmailServiceImpl implements EmailService {
                 "resetPasswordLink", frontendUrl + "/reset-password?token=" + token
         );
 
-        String htmlContent = templateEngine.process("password-reset", context);
+        String htmlContent = templateEngine.process("password_reset", context);
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 
