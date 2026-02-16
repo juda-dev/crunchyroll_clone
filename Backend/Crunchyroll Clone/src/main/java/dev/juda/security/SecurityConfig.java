@@ -30,7 +30,7 @@ public class SecurityConfig {
             "/auth/signup",
             "/auth/validate-email",
             "/auth/verify-email",
-            "/auth/resend-verification",
+            "/auth/resend-verification-email",
             "/auth/forgot-password",
             "/auth/reset-password"
     };
