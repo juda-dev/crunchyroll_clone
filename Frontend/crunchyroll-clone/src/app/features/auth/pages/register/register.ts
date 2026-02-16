@@ -1,5 +1,4 @@
 import {Component, computed, effect, inject, signal} from '@angular/core';
-import {LoginForm} from '../../components/login-form/login-form';
 import {RegisterForm} from '../../components/register-form/register-form';
 import {AuthLogin} from '../../interfaces/auth-login.interface';
 import {NotificationService} from '../../../../shared/services/notification.service';
@@ -24,6 +23,7 @@ export class Register {
   readonly notification = inject(NotificationService);
   readonly #authService = inject(AuthService);
   readonly #router = inject(Router);
+
   readonly registerSignal = signal<AuthLogin>({email: '', password: ''});
   readonly registerResource = rxResource({
     params: () => this.registerSignal(),

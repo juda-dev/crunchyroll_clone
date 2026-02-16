@@ -1,3 +1,5 @@
+<app-full-screen-loader/>
+
 <div class="login-page-container">
   <header class="login-header">
     <a href="/" class="logo-link">
@@ -8,6 +10,12 @@
   <main class="login-main">
     <div class="form-wrapper">
       <app-login-form (sendLogin)="login($event)"/>
+      @if (showResendButtonSignal()) {
+        <div class="resend-verification-section">
+          <p class="resend-text">Didn't receive the verification email?</p>
+          <button class="btn-resend-email" (click)="resendVerificationEmail()">RESEND EMAIL</button>
+        </div>
+      }
     </div>
   </main>
 

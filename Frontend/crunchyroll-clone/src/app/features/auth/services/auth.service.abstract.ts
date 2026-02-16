@@ -7,4 +7,6 @@ export abstract class AuthServiceAbstract {
   abstract login(user: AuthLogin): Observable<AuthLogin>;
 
   abstract register(user: AuthLogin): Observable<AuthLogin>;
+
+  abstract resendVerificationEmail(email: string): Observable<any>;
 }
