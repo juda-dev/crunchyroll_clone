@@ -11,7 +11,7 @@ export class NotificationService {
     this.snackBar.open(message, 'Close', {
       duration: duration,
       horizontalPosition: "center",
-      verticalPosition: "top",
+      verticalPosition: "bottom",
       panelClass: ['notification-success']
     });
   }
@@ -20,7 +20,7 @@ export class NotificationService {
     this.snackBar.open(message, 'Close', {
       duration: duration,
       horizontalPosition: "center",
-      verticalPosition: "top",
+      verticalPosition: "bottom",
       panelClass: ['notification-error']
     });
   }
