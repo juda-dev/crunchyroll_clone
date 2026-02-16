@@ -15,6 +15,11 @@ export const AUTH_ROUTES: Routes = [
         loadComponent: () => import('./pages/login/login')
           .then(p => p.Login)
       },
+      {
+        path: AUTH_PAGES.REGISTER,
+        loadComponent: () => import('./pages/register/register')
+          .then(p => p.Register)
+      }
     ]
   }
 ]

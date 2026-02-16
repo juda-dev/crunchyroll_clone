@@ -1,17 +1,20 @@
-import {Component, computed, inject, input, output, Signal} from '@angular/core';
+import {Component, computed, inject, output, Signal} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthLogin} from '../../interfaces/auth-login.interface';
+import {Router} from '@angular/router';
+import {AUTH_PAGES} from '../../auth.routes';
 
 @Component({
   selector: 'app-login-form',
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css',
 })
 export class LoginForm {
+  readonly #router = inject(Router);
   readonly #formBuilder = inject(FormBuilder);
   sendLogin = output<AuthLogin>();
 
@@ -29,4 +32,7 @@ export class LoginForm {
     }
   }
 
+  register() {
+    this.#router.navigate([AUTH_PAGES.AUTH, AUTH_PAGES.REGISTER])
+  }
 }

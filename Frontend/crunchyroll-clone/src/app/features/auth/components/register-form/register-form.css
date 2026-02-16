@@ -69,24 +69,6 @@
   display: block;
 }
 
-.forgot-password {
-  text-align: right;
-  margin-top: -0.25rem;
-}
-
-.link-text {
-  color: #f47521;
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 700;
-  transition: color 0.2s ease;
-}
-
-.link-text:hover {
-  color: #ff8533;
-  text-decoration: underline;
-}
-
 .btn-submit {
   background-color: #f47521;
   color: #000000;

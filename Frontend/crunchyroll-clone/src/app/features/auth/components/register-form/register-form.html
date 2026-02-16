@@ -1,11 +1,11 @@
 <div class="login-container">
-  <h2 class="login-title">Log In</h2>
+  <h2 class="login-title">Register</h2>
 
-  <form class="login-form" (ngSubmit)="login()" [formGroup]="loginForm()">
+  <form class="login-form" (ngSubmit)="register()" [formGroup]="registerForm()">
     <div class="form-group">
       <label for="email" class="form-label">Email Address</label>
       <input type="text" id="email" class="form-input" placeholder="Enter your email" formControlName="email">
-      @let email = loginForm().get('email');
+      @let email = registerForm().get('email');
       @if (email?.touched && email?.invalid || email?.dirty && email?.invalid) {
         <span class="error-message">Please enter a valid email address.</span>
       }
@@ -14,21 +14,17 @@
     <div class="form-group">
       <label for="password" class="form-label">Password</label>
       <input type="password" id="password" class="form-input" placeholder="Enter your password" formControlName="password">
-      @let password = loginForm().get('password');
+      @let password = registerForm().get('password');
       @if (password?.touched && password?.invalid || password?.dirty && password?.invalid) {
         <span class="error-message">Password is required.</span>
       }
     </div>
 
-    <div class="forgot-password">
-      <a href="#" class="link-text">Forgot Password?</a>
-    </div>
-
-    <button type="submit" class="btn-submit" [disabled]="loginForm().invalid">LOG IN</button>
+    <button type="submit" class="btn-submit" [disabled]="registerForm().invalid">REGISTER</button>
 
     <div class="create-account">
-      <span class="no-account-text">No account?</span>
-      <a (click)="register()" class="link-create">Create one</a>
+      <span class="no-account-text">Do you already have an account?</span>
+      <a (click)="login()" class="link-create">Log In</a>
     </div>
   </form>
 </div>

@@ -23,7 +23,7 @@ export class AuthService extends AuthServiceAbstract {
   }
 
   override register(user: AuthLogin): Observable<AuthLogin> {
-    throw new Error("Method not implemented.");
+    return this.#httpClient.post<AuthLogin>(`${this.API_ENDPOINT}/signup`, user)
   }
 
 }
