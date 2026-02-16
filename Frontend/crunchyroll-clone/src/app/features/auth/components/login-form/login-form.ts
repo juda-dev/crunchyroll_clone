@@ -1,10 +1,13 @@
 import {Component, computed, inject, input, output, Signal} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthLogin} from '../../interfaces/auth-login.interface';
 
 @Component({
   selector: 'app-login-form',
-  imports: [],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.css',
 })

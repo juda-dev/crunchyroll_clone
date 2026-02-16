@@ -1,24 +1,30 @@
 <div class="login-container">
   <h2 class="login-title">Log In</h2>
 
-  <form class="login-form">
+  <form class="login-form" (ngSubmit)="login()" [formGroup]="loginForm()">
     <div class="form-group">
       <label for="email" class="form-label">Email Address</label>
-      <input type="email" id="email" class="form-input" placeholder="Enter your email">
-      <span class="error-message">Please enter a valid email address.</span>
+      <input type="text" id="email" class="form-input" placeholder="Enter your email" formControlName="email">
+      @let email = loginForm().get('email');
+      @if (email?.touched && email?.invalid || email?.dirty && email?.invalid) {
+        <span class="error-message">Please enter a valid email address.</span>
+      }
     </div>
 
     <div class="form-group">
       <label for="password" class="form-label">Password</label>
-      <input type="password" id="password" class="form-input" placeholder="Enter your password">
-      <span class="error-message">Password is required.</span>
+      <input type="password" id="password" class="form-input" placeholder="Enter your password" formControlName="password">
+      @let password = loginForm().get('password');
+      @if (password?.touched && password?.invalid || password?.dirty && password?.invalid) {
+        <span class="error-message">Password is required.</span>
+      }
     </div>
 
     <div class="forgot-password">
       <a href="#" class="link-text">Forgot Password?</a>
     </div>
 
-    <button type="submit" class="btn-submit">LOG IN</button>
+    <button type="submit" class="btn-submit" [disabled]="loginForm().invalid">LOG IN</button>
 
     <div class="create-account">
       <span class="no-account-text">No account?</span>
