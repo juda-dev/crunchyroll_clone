@@ -5,7 +5,8 @@ export enum AUTH_PAGES {
   LOGIN = 'login',
   REGISTER = 'register',
   FORGOT_PASSWORD = 'forgot-password',
-  VERIFY_EMAIL = 'verify-email'
+  VERIFY_EMAIL = 'verify-email',
+  RESET_PASSWORD = 'reset-password'
 }
 
 export const AUTH_ROUTES: Routes = [
@@ -31,6 +32,11 @@ export const AUTH_ROUTES: Routes = [
         path: AUTH_PAGES.VERIFY_EMAIL,
         loadComponent: () => import('./pages/verify-email/verify-email')
           .then(p => p.VerifyEmail)
+      },
+      {
+        path: AUTH_PAGES.RESET_PASSWORD,
+        loadComponent: () => import('./pages/reset-password/reset-password')
+          .then(p => p.ResetPassword)
       }
     ]
   }
