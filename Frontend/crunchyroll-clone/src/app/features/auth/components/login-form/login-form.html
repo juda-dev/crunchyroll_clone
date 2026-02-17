@@ -13,7 +13,8 @@
 
     <div class="form-group">
       <label for="password" class="form-label">Password</label>
-      <input type="password" id="password" class="form-input" placeholder="Enter your password" formControlName="password">
+      <input type="password" id="password" class="form-input" placeholder="Enter your password"
+             formControlName="password">
       @let password = loginForm().get('password');
       @if (password?.touched && password?.invalid || password?.dirty && password?.invalid) {
         <span class="error-message">Password is required.</span>
@@ -21,7 +22,7 @@
     </div>
 
     <div class="forgot-password">
-      <a href="#" class="link-text">Forgot Password?</a>
+      <a (click)="forgotPassword()" class="link-text">Forgot Password?</a>
     </div>
 
     <button type="submit" class="btn-submit" [disabled]="loginForm().invalid">LOG IN</button>

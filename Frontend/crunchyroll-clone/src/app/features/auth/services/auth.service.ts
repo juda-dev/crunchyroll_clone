@@ -29,4 +29,9 @@ export class AuthService extends AuthServiceAbstract {
   override resendVerificationEmail(email: string): Observable<any> {
     return this.#httpClient.post<any>(`${this.API_ENDPOINT}/resend-verification-email`, {email});
   }
+
+
+  override forgotPassword(email: string): Observable<any> {
+    return this.#httpClient.post<any>(`${this.API_ENDPOINT}/forgot-password`, {email});
+  }
 }

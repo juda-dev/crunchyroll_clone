@@ -35,4 +35,8 @@ export class LoginForm {
   register() {
     this.#router.navigate([AUTH_PAGES.AUTH, AUTH_PAGES.REGISTER])
   }
+
+  forgotPassword(){
+    this.#router.navigate([AUTH_PAGES.AUTH, AUTH_PAGES.FORGOT_PASSWORD])
+  }
 }
