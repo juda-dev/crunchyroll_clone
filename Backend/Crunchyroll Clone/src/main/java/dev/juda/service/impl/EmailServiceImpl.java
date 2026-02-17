@@ -56,7 +56,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendPasswordResetEmail(String toEmail, String token) {
         Context context = new Context();
         context.setVariable(
-                "resetPasswordLink", frontendUrl + "/reset-password?token=" + token
+                "resetPasswordLink", frontendUrl + "/auth/reset-password?token=" + token
         );
 
         String htmlContent = templateEngine.process("password_reset", context);
