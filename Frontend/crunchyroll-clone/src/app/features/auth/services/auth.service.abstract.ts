@@ -11,4 +11,6 @@ export abstract class AuthServiceAbstract {
   abstract resendVerificationEmail(email: string): Observable<any>;
 
   abstract forgotPassword(email: string): Observable<any>;
+
+  abstract verifyEmail(token: string): Observable<any>;
 }
