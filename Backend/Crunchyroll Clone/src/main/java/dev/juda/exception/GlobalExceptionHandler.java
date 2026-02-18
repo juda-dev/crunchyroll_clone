@@ -113,6 +113,18 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(FileNotFoundException.class)
+    public ErrorResponse handlerFileNotFoundException() {
+        return new ErrorResponse(
+                FILE_NOT_FOUND.getCode(),
+                HttpStatus.NOT_FOUND,
+                FILE_NOT_FOUND.getMessage(),
+                null,
+                LocalDateTime.now()
+        );
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
@@ -131,7 +143,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ErrorResponse handlerException(Exception ex){
+    public ErrorResponse handlerException(Exception ex) {
 
         return new ErrorResponse(GENERIC_ERROR.getCode()
                 , HttpStatus.INTERNAL_SERVER_ERROR

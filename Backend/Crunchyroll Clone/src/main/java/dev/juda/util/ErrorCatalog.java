@@ -9,7 +9,8 @@ public enum ErrorCatalog {
     INVALID_CREDENTIALS("ERR_AUTH_006", "Current password is incorrect"),
     GENERIC_ERROR("ERR_GEN_001", "An unexpected error"),
     ROLE_NOT_FOUND("ERR_ROLE_001", "Role not found in the database"),
-    USER_NOT_FOUND("ERR_USR_001", "User not found in the database")
+    USER_NOT_FOUND("ERR_USR_001", "User not found in the database"),
+    FILE_NOT_FOUND("ERR_FILE_001", "File not found in the server")
     ;
 
     private final String code;
