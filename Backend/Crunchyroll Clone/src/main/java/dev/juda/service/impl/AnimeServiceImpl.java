@@ -71,4 +71,13 @@ public class AnimeServiceImpl implements AnimeService {
         return new MessageResponse("Anime updated successfully");
     }
 
+    @Override
+    @Transactional
+    public MessageResponse deleteAnime(UUID id) {
+        if (!animeRepository.existsById(id)) throw new AnimeNotFoundException();
+
+        animeRepository.deleteById(id);
+
+        return new MessageResponse("Anime deleted successfully");
+    }
 }

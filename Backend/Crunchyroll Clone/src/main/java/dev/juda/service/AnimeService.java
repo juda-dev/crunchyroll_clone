@@ -13,4 +13,6 @@ public interface AnimeService {
     PageResponse<AnimeResponse> getAllAnimes(int page, int size, String search);
 
     MessageResponse updateAnime(UUID id, SetAnimeRequest request);
+
+    MessageResponse deleteAnime(UUID id);
 }
