@@ -1,11 +1,14 @@
 package dev.juda.service.impl;
 
+import dev.juda.exception.AnimeNotFoundException;
+import dev.juda.exception.CategoryNotFoundException;
 import dev.juda.mapper.AnimeMapper;
-import dev.juda.model.dto.request.CreateAnimeRequest;
+import dev.juda.model.dto.request.SetAnimeRequest;
 import dev.juda.model.dto.response.AnimeResponse;
 import dev.juda.model.dto.response.MessageResponse;
 import dev.juda.model.dto.response.PageResponse;
 import dev.juda.model.entity.AnimeEntity;
+import dev.juda.model.entity.CategoryEntity;
 import dev.juda.repository.AnimeRepository;
 import dev.juda.repository.CategoryRepository;
 import dev.juda.service.AnimeService;
@@ -15,6 +18,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class AnimeServiceImpl implements AnimeService {
 
@@ -30,8 +37,8 @@ public class AnimeServiceImpl implements AnimeService {
     @Override
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponse createAnime(CreateAnimeRequest request) {
-        animeRepository.save(AnimeMapper.createToEntity(request, categoryRepository));
+    public MessageResponse createAnime(SetAnimeRequest request) {
+        animeRepository.save(AnimeMapper.setToEntity(request, categoryRepository));
         return new MessageResponse("Anime created successfully");
     }
 
@@ -46,4 +53,22 @@ public class AnimeServiceImpl implements AnimeService {
 
         return PaginationUtils.toPageResponse(animePage, AnimeMapper::entityToResponse);
     }
+
+    @Override
+    @Transactional
+    public MessageResponse updateAnime(UUID id, SetAnimeRequest request) {
+        AnimeEntity anime = animeRepository.findById(id).orElseThrow(AnimeNotFoundException::new);
+        anime.setName(request.name());
+        anime.setDescription(request.description());
+        anime.setPosterUuid(request.poster());
+        anime.setBannerUuid(request.banner());
+
+        Set<CategoryEntity> categories = request.categories().stream().map(categoryValue -> categoryRepository.findByValueIgnoreCase(categoryValue).orElseThrow(CategoryNotFoundException::new)).collect(Collectors.toSet());
+
+        anime.setCategories(categories);
+
+        animeRepository.save(anime);
+        return new MessageResponse("Anime updated successfully");
+    }
+
 }

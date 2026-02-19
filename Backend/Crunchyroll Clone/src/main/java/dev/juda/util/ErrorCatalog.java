@@ -11,7 +11,8 @@ public enum ErrorCatalog {
     ROLE_NOT_FOUND("ERR_ROLE_001", "Role not found in the database"),
     USER_NOT_FOUND("ERR_USR_001", "User not found in the database"),
     FILE_NOT_FOUND("ERR_FILE_001", "File not found in the server"),
-    CATEGORY_NOT_FOUND("ERR_CAT_001", "Category not found in the database")
+    CATEGORY_NOT_FOUND("ERR_CAT_001", "Category not found in the database"),
+    ANIME_NOT_FOUND("ERR_ANM_001", "Anime not found in the database")
     ;
 
     private final String code;

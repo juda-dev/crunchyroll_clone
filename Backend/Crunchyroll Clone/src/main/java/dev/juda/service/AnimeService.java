@@ -1,13 +1,16 @@
 package dev.juda.service;
 
-import dev.juda.model.dto.request.CreateAnimeRequest;
+import dev.juda.model.dto.request.SetAnimeRequest;
 import dev.juda.model.dto.response.AnimeResponse;
 import dev.juda.model.dto.response.MessageResponse;
 import dev.juda.model.dto.response.PageResponse;
-import dev.juda.model.entity.AnimeEntity;
+
+import java.util.UUID;
 
 public interface AnimeService {
-    MessageResponse createAnime(CreateAnimeRequest request);
+    MessageResponse createAnime(SetAnimeRequest request);
 
     PageResponse<AnimeResponse> getAllAnimes(int page, int size, String search);
+
+    MessageResponse updateAnime(UUID id, SetAnimeRequest request);
 }

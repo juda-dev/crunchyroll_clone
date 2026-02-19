@@ -1,7 +1,7 @@
 package dev.juda.mapper;
 
 import dev.juda.exception.CategoryNotFoundException;
-import dev.juda.model.dto.request.CreateAnimeRequest;
+import dev.juda.model.dto.request.SetAnimeRequest;
 import dev.juda.model.dto.response.AnimeResponse;
 import dev.juda.model.entity.AnimeEntity;
 import dev.juda.model.entity.CategoryEntity;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class AnimeMapper {
 
-    public static AnimeEntity createToEntity(CreateAnimeRequest request, CategoryRepository repository) {
+    public static AnimeEntity setToEntity(SetAnimeRequest request, CategoryRepository repository) {
         AnimeEntity animeEntity = new AnimeEntity();
 
         animeEntity.setName(request.name());

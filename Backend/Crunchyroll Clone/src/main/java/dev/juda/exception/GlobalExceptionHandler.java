@@ -137,6 +137,18 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(AnimeNotFoundException.class)
+    public ErrorResponse handlerAnimeNotFoundException() {
+        return new ErrorResponse(
+                ANIME_NOT_FOUND.getCode(),
+                HttpStatus.NOT_FOUND,
+                ANIME_NOT_FOUND.getMessage(),
+                null,
+                LocalDateTime.now()
+        );
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
