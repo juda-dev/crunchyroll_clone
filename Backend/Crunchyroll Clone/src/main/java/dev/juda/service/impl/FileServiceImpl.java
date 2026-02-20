@@ -10,11 +10,9 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.MediaTypeFactory;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -49,11 +47,13 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    @ResponseStatus(HttpStatus.CREATED)
     public MessageResponse storeVideoFile(MultipartFile file) {
         return storeFile(file, this.videoStorageLocation);
     }
 
     @Override
+    @ResponseStatus(HttpStatus.CREATED)
     public MessageResponse storeImageFile(MultipartFile file) {
         return storeFile(file, this.imageStorageLocation);
     }
