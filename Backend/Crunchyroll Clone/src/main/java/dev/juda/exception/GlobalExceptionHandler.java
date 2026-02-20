@@ -149,6 +149,30 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(StorageDirectoryCreationFailedException.class)
+    public ErrorResponse handlerStorageDirectoryCreationFailedException() {
+        return new ErrorResponse(
+                STORAGE_DIRECTORY_CREATION_FAILED.getCode(),
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                STORAGE_DIRECTORY_CREATION_FAILED.getMessage(),
+                null,
+                LocalDateTime.now()
+        );
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(EmptyFileException.class)
+    public ErrorResponse handlerEmptyFileException() {
+        return new ErrorResponse(
+                EMPTY_FILE.getCode(),
+                HttpStatus.BAD_REQUEST,
+                EMPTY_FILE.getMessage(),
+                null,
+                LocalDateTime.now()
+        );
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex) {

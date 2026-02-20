@@ -12,7 +12,9 @@ public enum ErrorCatalog {
     USER_NOT_FOUND("ERR_USR_001", "User not found in the database"),
     FILE_NOT_FOUND("ERR_FILE_001", "File not found in the server"),
     CATEGORY_NOT_FOUND("ERR_CAT_001", "Category not found in the database"),
-    ANIME_NOT_FOUND("ERR_ANM_001", "Anime not found in the database")
+    ANIME_NOT_FOUND("ERR_ANM_001", "Anime not found in the database"),
+    STORAGE_DIRECTORY_CREATION_FAILED("ERR_STR_001", "Failed to create storage directory"),
+    EMPTY_FILE("ERR_FILE_002", "File is empty")
     ;
 
     private final String code;
