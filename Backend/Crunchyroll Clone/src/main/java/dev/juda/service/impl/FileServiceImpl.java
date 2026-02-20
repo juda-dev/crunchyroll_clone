@@ -4,6 +4,7 @@ import dev.juda.exception.EmptyFileException;
 import dev.juda.exception.FileNotFoundException;
 import dev.juda.exception.StorageDirectoryCreationFailedException;
 import dev.juda.model.dto.response.MessageResponse;
+import dev.juda.model.dto.response.UploadResponse;
 import dev.juda.service.FileService;
 import dev.juda.util.FileHandlerUtil;
 import jakarta.annotation.PostConstruct;
@@ -48,17 +49,17 @@ public class FileServiceImpl implements FileService {
 
     @Override
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponse storeVideoFile(MultipartFile file) {
+    public UploadResponse storeVideoFile(MultipartFile file) {
         return storeFile(file, this.videoStorageLocation);
     }
 
     @Override
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponse storeImageFile(MultipartFile file) {
+    public UploadResponse storeImageFile(MultipartFile file) {
         return storeFile(file, this.imageStorageLocation);
     }
 
-    private MessageResponse storeFile(MultipartFile file, Path storageLocation) {
+    private UploadResponse storeFile(MultipartFile file, Path storageLocation) {
         if (file.isEmpty()) throw new EmptyFileException();
 
         String fileExtension = FileHandlerUtil.extractFileExtension(file.getOriginalFilename());
@@ -68,7 +69,7 @@ public class FileServiceImpl implements FileService {
         try {
             Path targetLocation = storageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            return new MessageResponse(uuid);
+            return new UploadResponse(uuid, file.getOriginalFilename(), String.valueOf(file.getSize()));
         } catch (IOException ex) {
             throw new StorageDirectoryCreationFailedException();
         }
