@@ -39,6 +39,7 @@ public class AnimeServiceImpl implements AnimeService {
     @Override
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
+    @
     public MessageResponse createAnime(SetAnimeRequest request) {
         animeRepository.save(AnimeMapper.setToEntity(request, categoryRepository));
         return new MessageResponse("Anime created successfully");
