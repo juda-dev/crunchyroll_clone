@@ -22,7 +22,7 @@ public class AnimeEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000)
     private String description;
 
     @Column(name = "poster_uuid")
