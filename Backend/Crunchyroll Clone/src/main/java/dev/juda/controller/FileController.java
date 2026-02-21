@@ -1,6 +1,5 @@
 package dev.juda.controller;
 
-import dev.juda.model.dto.response.MessageResponse;
 import dev.juda.model.dto.response.UploadResponse;
 import dev.juda.service.FileService;
 import org.springframework.core.io.Resource;

@@ -173,6 +173,18 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(CategoryAlreadyExistsException.class)
+    public ErrorResponse handlerCategoryAlreadyExists() {
+        return new ErrorResponse(
+                CATEGORY_ALREADY_EXISTS.getCode(),
+                HttpStatus.CONFLICT,
+                CATEGORY_ALREADY_EXISTS.getMessage(),
+                null,
+                LocalDateTime.now()
+        );
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex) {

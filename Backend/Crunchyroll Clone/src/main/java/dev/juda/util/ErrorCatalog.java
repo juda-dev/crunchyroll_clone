@@ -14,7 +14,8 @@ public enum ErrorCatalog {
     CATEGORY_NOT_FOUND("ERR_CAT_001", "Category not found in the database"),
     ANIME_NOT_FOUND("ERR_ANM_001", "Anime not found in the database"),
     STORAGE_DIRECTORY_CREATION_FAILED("ERR_STR_001", "Failed to create storage directory"),
-    EMPTY_FILE("ERR_FILE_002", "File is empty")
+    EMPTY_FILE("ERR_FILE_002", "File is empty"),
+    CATEGORY_ALREADY_EXISTS("ERR_CAT_002", "Category already exists")
     ;
 
     private final String code;
