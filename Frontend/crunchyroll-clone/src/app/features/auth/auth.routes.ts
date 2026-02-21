@@ -39,5 +39,6 @@ export const AUTH_ROUTES: Routes = [
           .then(p => p.ResetPassword)
       }
     ]
-  }
+  },
+  {path: '**', redirectTo: AUTH_PAGES.LOGIN}
 ]

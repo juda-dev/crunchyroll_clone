@@ -2,9 +2,6 @@ import {Routes} from '@angular/router';
 import {Landing} from './features/landing/landing';
 import {AUTH_PAGES} from './features/auth/auth.routes';
 
-export enum FEATURES_PAGES {
-}
-
 export const routes: Routes = [
   {
     path: '',
@@ -20,5 +17,6 @@ export const routes: Routes = [
           .then(r => r.AUTH_ROUTES)
       }
     ]
-  }
+  },
+  {path: '**', redirectTo: ''}
 ];
