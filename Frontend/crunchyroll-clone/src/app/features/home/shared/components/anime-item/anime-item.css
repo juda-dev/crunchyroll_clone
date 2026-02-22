@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+.anime-card {
+  width: 200px;
+  height: 320px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: #23252b;
+  font-family: 'Lato', sans-serif;
+  transition: transform 0.2s ease;
+}
+
+.anime-card:hover {
+  transform: scale(1.02);
+  z-index: 10;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.poster-wrapper {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+}
+
+app-image-viewer {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.anime-card:hover app-image-viewer ::ng-deep img {
+  filter: blur(2px) brightness(0.5);
+  transition: filter 0.3s ease;
+}
+
+.default-info {
+  padding: 8px 10px;
+  background-color: #23252b;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.default-title {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.3px;
+}
+
+.hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.92);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  box-sizing: border-box;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.anime-card:hover .hover-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-title {
+  color: #f47521;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.description {
+  color: #dadada;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 9;
+  -webkit-box-orient: vertical;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.action-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+}
+
+.play-btn:hover {
+  background-color: #f47521;
+}
+
+.edit-btn:hover {
+  background-color: #00aaff;
+}
+
+.delete-btn:hover {
+  background-color: #ff4d4d;
+}

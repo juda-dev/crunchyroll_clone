@@ -1,0 +1,25 @@
+<div class="anime-card">
+  <div class="poster-wrapper">
+    <app-image-viewer [imageId]="anime().poster" [altText]="anime().name + ' Poster'"></app-image-viewer>
+  </div>
+
+  <div class="default-info">
+    <h3 class="default-title">{{ anime().name }}</h3>
+  </div>
+
+  <div class="hover-overlay">
+    <h3 class="overlay-title">{{ anime().name }}</h3>
+    <p class="description">{{ anime().description }}</p>
+    <div class="action-buttons">
+      <button mat-icon-button class="action-btn play-btn">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+      <button mat-icon-button class="action-btn edit-btn">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button class="action-btn delete-btn">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
