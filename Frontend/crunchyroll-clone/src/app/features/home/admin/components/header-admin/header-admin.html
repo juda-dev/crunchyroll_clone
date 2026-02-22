@@ -1,0 +1,47 @@
+<mat-toolbar class="admin-header">
+  <div class="header-left">
+    <div class="brand-container" (click)="navigateHome()">
+      <img src="crunchyroll-1.svg" alt="Crunchyroll" class="brand-logo">
+      <span class="admin-mini-badge">ADMIN</span>
+    </div>
+
+    <nav class="nav-container">
+      <button mat-button class="nav-btn" (click)="navigateHome()">Animes</button>
+      <button mat-button class="nav-btn">Categories</button>
+      <button mat-button class="nav-btn">Users</button>
+    </nav>
+  </div>
+
+  <span class="spacer"></span>
+
+  <div class="header-right">
+    <button mat-button [matMenuTriggerFor]="userMenu" class="profile-trigger">
+      <div class="avatar-wrapper">
+        <img [ngSrc]="`https://ui-avatars.com/api/?name=${user}&background=f47521&color=fff&size=64`" width="36" height="36" alt="User"
+             class="avatar-img">
+      </div>
+      <mat-icon class="trigger-icon">expand_more</mat-icon>
+    </button>
+
+    <mat-menu #userMenu="matMenu" xPosition="before" class="custom-admin-menu">
+      <div class="menu-user-info">
+        <span class="menu-greeting">Logged in as</span>
+        <span class="user-email">{{ user }}</span>
+      </div>
+
+      <div class="menu-separator"></div>
+
+      <button mat-menu-item class="menu-item">
+        <mat-icon class="menu-icon">edit</mat-icon>
+        <span>Edit Profile</span>
+      </button>
+
+      <div class="menu-separator"></div>
+
+      <button mat-menu-item class="menu-item logout-item" (click)="logout()">
+        <mat-icon class="menu-icon">logout</mat-icon>
+        <span>Log Out</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
