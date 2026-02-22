@@ -4,7 +4,6 @@ import {map, Observable} from "rxjs";
 import {AuthLogin} from "../interfaces/auth-login.interface";
 import {HttpClient} from '@angular/common/http';
 import {TokenStorageService} from '../../../shared/services/token-storage.service';
-import {email} from '@angular/forms/signals';
 import {AuthResetPassword} from '../interfaces/auth-reset-password.interface';
 
 @Injectable({
@@ -19,6 +18,7 @@ export class AuthService extends AuthServiceAbstract {
       .pipe(
         map((resp: any) => {
           this.#tokenStorageService.token = resp.token;
+          this.#tokenStorageService.currentUser = resp.email;
           return resp;
         })
       )

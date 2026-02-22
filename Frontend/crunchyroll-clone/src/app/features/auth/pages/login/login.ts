@@ -8,6 +8,7 @@ import {NEVER, tap} from 'rxjs';
 import {NotificationService} from '../../../../shared/services/notification.service';
 import {FullScreenLoaderService} from '../../../../shared/loaders/full-screen/full-screen-loader.service';
 import {FullScreenLoader} from '../../../../shared/loaders/full-screen/full-screen-loader/full-screen-loader';
+import {HOME_PAGES} from '../../../home/home.routes';
 
 @Component({
   selector: 'app-login',
@@ -72,7 +73,7 @@ export class Login {
 
   navigateEffect = effect(() => {
     if (this.isLoginResourceCompleted()) {
-      this.#router.navigate(['/']); /* Temporary */
+      this.#router.navigate([HOME_PAGES.HOME, HOME_PAGES.ANIMES]);
     }
   })
 
