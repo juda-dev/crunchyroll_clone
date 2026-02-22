@@ -1,0 +1,85 @@
+.animes-container {
+  padding: 40px 60px;
+  background-color: #000000;
+  min-height: calc(100vh - 64px);
+}
+
+.animes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+  justify-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1200px) {
+  .animes-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.custom-fab {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 1000;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background-color: #f47521;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(244, 117, 33, 0.4);
+  transition: width 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+  overflow: hidden;
+  padding: 0;
+}
+
+.icon {
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.text {
+  white-space: nowrap;
+  opacity: 0;
+  width: 0;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s ease, width 0.3s ease;
+  overflow: hidden;
+}
+
+.custom-fab:hover {
+  width: 200px;
+  background-color: #ffffff;
+  color: #f47521;
+  transform: translateY(-2px);
+  justify-content: flex-start;
+}
+
+.custom-fab:hover .icon {
+  transform: rotate(90deg);
+  color: #f47521;
+}
+
+.custom-fab:hover .text {
+  opacity: 1;
+  width: auto;
+  padding-right: 20px;
+}

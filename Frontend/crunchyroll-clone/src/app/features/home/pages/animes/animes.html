@@ -1,0 +1,14 @@
+<app-header-admin/>
+
+<div class="animes-container">
+  <div class="animes-grid">
+    @for (anime of animes(); track anime.id) {
+      <app-anime-item [anime]="anime"/>
+    }
+  </div>
+</div>
+
+<button class="custom-fab">
+  <span class="icon">+</span>
+  <span class="text">Add New Anime</span>
+</button>
