@@ -1,0 +1,7 @@
+<div class="image-wrapper">
+  @if (imageSrc()) {
+    <img [src]="imageSrc()" [alt]="altText()" class="protected-image" />
+  } @else {
+    <div class="skeleton-loader"></div>
+  }
+</div>
