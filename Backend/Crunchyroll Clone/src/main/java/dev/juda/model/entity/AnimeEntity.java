@@ -26,11 +26,9 @@ public class AnimeEntity {
     private String description;
 
     @Column(name = "poster_uuid")
-    @JsonIgnore
     private String posterUuid;
 
     @Column(name = "banner_uuid")
-    @JsonIgnore
     private String bannerUuid;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -56,24 +54,6 @@ public class AnimeEntity {
     @PreUpdate
     private void preUpdate() {
         this.updatedAt = Instant.now();
-    }
-
-    @JsonProperty("poster")
-    public String getPoster() {
-        if (posterUuid != null && !posterUuid.isEmpty()) {
-            String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-            return baseUrl + ApiPaths.ANIME_POSTERS + posterUuid;
-        }
-        return null;
-    }
-
-    @JsonProperty("banner")
-    public String getBanner() {
-        if (bannerUuid != null && !bannerUuid.isEmpty()) {
-            String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-            return baseUrl + ApiPaths.ANIME_BANNERS + bannerUuid;
-        }
-        return null;
     }
 
     public UUID getId() {

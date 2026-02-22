@@ -32,8 +32,8 @@ public class AnimeMapper {
                 entity.getId().toString(),
                 entity.getName(),
                 entity.getDescription(),
-                entity.getPoster(),
-                entity.getBanner(),
+                entity.getPosterUuid(),
+                entity.getBannerUuid(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt(),
                 entity.getCategories().stream().map(CategoryEntity::getValue).toList()

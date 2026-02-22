@@ -27,6 +27,7 @@ public class AnimeController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public PageResponse<AnimeResponse> getAllAnimes(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
