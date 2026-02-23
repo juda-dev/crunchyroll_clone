@@ -10,7 +10,7 @@
     <div class="form-fields">
       <div class="custom-field">
         <label for="name">Name</label>
-        <input id="name" type="text" formControlName="name" placeholder="e.g., JUJUTSU KAISEN">
+        <input id="name" type="text" formControlName="name" placeholder="Enter the anime title">
         @if (form().get('name')?.invalid && form().get('name')?.touched) {
           <div class="error-message">Name is required.</div>
         }
