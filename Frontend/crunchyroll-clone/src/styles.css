@@ -67,3 +67,10 @@ html, body {
   font-weight: 900 !important;
   text-transform: uppercase;
 }
+
+.custom-dialog-container .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}

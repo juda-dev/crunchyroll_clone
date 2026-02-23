@@ -1,0 +1,99 @@
+<div class="form-container" (click)="$event.stopPropagation()">
+  <header class="form-header">
+    <h1>Add New Anime</h1>
+    <button mat-icon-button (click)="close()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+
+  <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="form-content">
+    <div class="form-fields">
+      <div class="custom-field">
+        <label for="name">Name</label>
+        <input id="name" type="text" formControlName="name" placeholder="e.g., JUJUTSU KAISEN">
+        @if (form().get('name')?.invalid && form().get('name')?.touched) {
+          <div class="error-message">Name is required.</div>
+        }
+      </div>
+
+      <div class="custom-field">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" rows="5" placeholder="Enter a brief synopsis..."></textarea>
+        @if (form().get('description')?.invalid && form().get('description')?.touched) {
+          <div class="error-message">Description is required.</div>
+        }
+      </div>
+
+      <div class="custom-field categories-field">
+        <label>Categories</label>
+        <div class="categories-grid">
+          @for (category of availableCategories; track category) {
+            <div class="category-item"
+                 [class.selected]="isCategorySelected(category)"
+                 (click)="toggleCategory(category)">
+              {{ category }}
+            </div>
+          }
+        </div>
+        @if (form().get('categories')?.invalid && form().get('categories')?.touched) {
+          <div class="error-message">At least one category is required.</div>
+        }
+      </div>
+    </div>
+
+    <div class="image-uploaders">
+      <div class="poster-section">
+        <div class="uploader-box poster-box" (click)="posterInput.click()">
+          <input type="file" hidden #posterInput (change)="onFileSelected($event, 'poster')" accept="image/*">
+          @if (imagesState().poster.preview) {
+            <img [src]="imagesState().poster.preview" class="preview-image">
+          } @else {
+            <div class="upload-placeholder">
+              <mat-icon>photo_camera</mat-icon>
+              <span>Poster</span>
+              <small>(2:3)</small>
+            </div>
+          }
+          @if (imagesState().poster.uploading) {
+            <mat-progress-bar mode="determinate" [value]="imagesState().poster.progress"></mat-progress-bar>
+          }
+        </div>
+        @if (form().get('posterUuid')?.invalid && form().get('posterUuid')?.touched) {
+          <div class="error-message center-text">Poster required.</div>
+        }
+      </div>
+
+      <div class="banner-section">
+        <div class="uploader-box banner-box" (click)="bannerInput.click()">
+          <input type="file" hidden #bannerInput (change)="onFileSelected($event, 'banner')" accept="image/*">
+          @if (imagesState().banner.preview) {
+            <img [src]="imagesState().banner.preview" class="preview-image">
+          } @else {
+            <div class="upload-placeholder">
+              <mat-icon>photo_size_select_actual</mat-icon>
+              <span>Banner</span>
+              <small>(16:9)</small>
+            </div>
+          }
+          @if (imagesState().banner.uploading) {
+            <mat-progress-bar mode="determinate" [value]="imagesState().banner.progress"></mat-progress-bar>
+          }
+        </div>
+        @if (form().get('bannerUuid')?.invalid && form().get('bannerUuid')?.touched) {
+          <div class="error-message center-text">Banner required.</div>
+        }
+      </div>
+    </div>
+  </form>
+
+  <footer class="form-footer">
+    <button mat-stroked-button (click)="close()" class="cancel-btn">Cancel</button>
+    <button mat-flat-button (click)="onSubmit()" [disabled]="form().invalid || isSaving()" class="save-btn">
+      @if (isSaving()) {
+        <span>Saving...</span>
+      } @else {
+        <span>Save Anime</span>
+      }
+    </button>
+  </footer>
+</div>
