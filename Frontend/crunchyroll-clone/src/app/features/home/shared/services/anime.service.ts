@@ -16,4 +16,7 @@ export class AnimeService extends AnimeServiceAbstract {
       .pipe(tap(resp => this.#animesSignal.set(resp.content)))
   }
 
+  override createAnime(animeData: any): Observable<any> {
+    return this.#httpClient.post(`${this.API_ENDPOINT}`, animeData);
+  }
 }
