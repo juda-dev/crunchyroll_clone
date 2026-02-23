@@ -13,7 +13,7 @@ import java.util.function.Function;
 @Component
 public class SecurityUtils {
 
-    private static final long JWT_TOKEN_VALIDITY = 15L * 60 * 1000;
+    private static final long JWT_TOKEN_VALIDITY = 60L * 12 * 60 * 1000;
     private static final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();
     public final static String PREFIX_TOKEN = "Bearer ";
     public final static String HEADER_AUTHORIZATION = "Authorization";

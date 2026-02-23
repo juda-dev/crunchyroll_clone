@@ -5,6 +5,7 @@ import dev.juda.model.dto.response.AnimeResponse;
 import dev.juda.model.dto.response.MessageResponse;
 import dev.juda.model.dto.response.PageResponse;
 import dev.juda.service.AnimeService;
+import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class AnimeController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public MessageResponse createAnime(@RequestBody SetAnimeRequest request) {
+    public MessageResponse createAnime(@Valid @RequestBody SetAnimeRequest request) {
         return animeService.createAnime(request);
     }
 
@@ -37,7 +38,7 @@ public class AnimeController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public MessageResponse updateAnime(@PathVariable UUID id, @RequestBody SetAnimeRequest request) {
+    public MessageResponse updateAnime(@PathVariable UUID id, @Valid @RequestBody SetAnimeRequest request) {
         return animeService.updateAnime(id, request);
     }
 
