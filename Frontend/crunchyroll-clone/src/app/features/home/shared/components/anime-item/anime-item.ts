@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component, input, output} from '@angular/core';
 import {MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {ImageViewer} from '../../../../../shared/components/image-viewer/image-viewer';
@@ -15,4 +15,9 @@ import {ImageViewer} from '../../../../../shared/components/image-viewer/image-v
 })
 export class AnimeItem {
   readonly anime = input.required<any>();
+  removeAnime = output<string>();
+
+  remove(animeId: string){
+    this.removeAnime.emit(animeId);
+  }
 }
