@@ -3,7 +3,7 @@
 <div class="animes-container">
   <div class="animes-grid">
     @for (anime of animes(); track anime.id) {
-      <app-anime-item [anime]="anime"/>
+      <app-anime-item [anime]="anime" (removeAnime)="removeAnime($event)"/>
     }
   </div>
 </div>
