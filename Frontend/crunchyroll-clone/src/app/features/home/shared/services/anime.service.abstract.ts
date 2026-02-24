@@ -6,4 +6,6 @@ export abstract class AnimeServiceAbstract{
   abstract getAllAnimes(page: number, size: number, search: string): Observable<any>;
 
   abstract createAnime(animeData: any): Observable<any>;
+
+  abstract removeAnime(animeId: string): Observable<any>;
 }
