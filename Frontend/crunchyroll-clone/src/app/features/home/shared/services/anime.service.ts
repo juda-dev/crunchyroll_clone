@@ -19,4 +19,8 @@ export class AnimeService extends AnimeServiceAbstract {
   override createAnime(animeData: any): Observable<any> {
     return this.#httpClient.post(`${this.API_ENDPOINT}`, animeData);
   }
+
+  override removeAnime(animeId: string): Observable<any> {
+    return this.#httpClient.delete<any>(`${this.API_ENDPOINT}/${animeId}`);
+  }
 }
