@@ -1,5 +1,5 @@
 .animes-container {
-  padding: 40px 60px;
+  padding: 20px 60px 40px 60px;
   background-color: #000000;
   min-height: calc(100vh - 64px);
 }
@@ -82,4 +82,16 @@
   opacity: 1;
   width: auto;
   padding-right: 20px;
+}
+
+@media (max-width: 768px) {
+  .animes-container {
+    padding: 16px 16px 32px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .animes-container {
+    padding: 12px 12px 24px 12px;
+  }
 }

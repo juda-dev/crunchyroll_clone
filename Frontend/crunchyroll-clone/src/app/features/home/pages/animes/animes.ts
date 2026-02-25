@@ -1,6 +1,7 @@
 import {Component, inject, signal} from '@angular/core';
 import {HeaderAdmin} from '../../admin/components/header-admin/header-admin';
 import {AnimeItem} from '../../shared/components/anime-item/anime-item';
+import {SearchAnime} from '../../shared/components/search-anime/search-anime';
 import {AnimeService} from '../../shared/services/anime.service';
 import {rxResource} from '@angular/core/rxjs-interop';
 import {MatDialog} from '@angular/material/dialog';
@@ -15,18 +16,26 @@ import {Router} from '@angular/router';
   imports: [
     HeaderAdmin,
     AnimeItem,
+    SearchAnime,
   ],
   templateUrl: './animes.html',
   styleUrl: './animes.css',
 })
 export class Animes {
   readonly dialog = inject(MatDialog);
+
+  readonly search = signal<string>('');
+  readonly resultsCount = signal<number>(0);
+
   readonly #animeService = inject(AnimeService);
   readonly #notification = inject(NotificationService);
   readonly #dialogService = inject(DialogService);
   animes: any = this.#animeService.animes();
   animesResource = rxResource({
-    stream: () => this.#animeService.getAllAnimes(0, 10, '')
+    stream: () => this.#animeService.getAllAnimes(0, 10, this.search())
+      .pipe(tap((pag) => {
+        this.resultsCount.set(pag.totalElements)
+      }))
   });
 
   #animeToRemoveSignal = signal<string>('');
@@ -80,4 +89,18 @@ export class Animes {
     });
   }
 
+  onSearch(searchTerm: string): void {
+    this.search.set(searchTerm);
+    this.animesResource.reload();
+  }
+
+  onClearSearch(): void {
+    this.search.set('');
+    this.animesResource.reload();
+  }
+
+  onResetSearch(): void {
+    this.search.set('');
+    this.animesResource.reload();
+  }
 }

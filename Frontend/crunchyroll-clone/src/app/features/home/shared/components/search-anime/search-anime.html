@@ -1,0 +1,55 @@
+<div class="search-anime-container">
+  <div class="search-wrapper">
+    <div class="search-icon">
+      <mat-icon>search</mat-icon>
+    </div>
+
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search anime by name, description, or category..."
+      [value]="searchTerm()"
+      (input)="onSearchInput($event)"
+      (keyup.enter)="onSearch()"
+    />
+
+    <div class="search-actions">
+      @if (searchTerm()) {
+        <button
+          mat-icon-button
+          class="clear-btn"
+          (click)="onClear()"
+          aria-label="Clear search"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+
+      <button
+        mat-flat-button
+        class="search-btn"
+        (click)="onSearch()"
+        [disabled]="!searchTerm()"
+      >
+        <span class="btn-text">Search</span>
+        <mat-icon class="btn-icon">arrow_forward</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  @if (showResultsInfo()) {
+    <div class="search-info">
+      <div class="info-content">
+        <span class="results-count">{{ resultsCount() }} results found</span>
+        <button
+          mat-stroked-button
+          class="reset-btn"
+          (click)="onReset()"
+        >
+          <mat-icon>refresh</mat-icon>
+          <span>Reset search</span>
+        </button>
+      </div>
+    </div>
+  }
+</div>

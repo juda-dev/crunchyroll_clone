@@ -1,5 +1,12 @@
 <app-header-admin/>
 
+<app-search-anime
+  (search)="onSearch($event)"
+  (clearSearch)="onClearSearch()"
+  (resetSearch)="onResetSearch()"
+  [resultsCount]="resultsCount()"
+/>
+
 <div class="animes-container">
   <div class="animes-grid">
     @for (anime of animes(); track anime.id) {
