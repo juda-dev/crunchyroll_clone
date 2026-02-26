@@ -1,4 +1,4 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {HeaderAdmin} from '../../admin/components/header-admin/header-admin';
 import {AnimeItem} from '../../shared/components/anime-item/anime-item';
 import {SearchAnime} from '../../shared/components/search-anime/search-anime';
@@ -9,7 +9,8 @@ import {AnimeForm} from '../../admin/components/forms/anime-form/anime-form';
 import {NotificationService} from '../../../../shared/services/notification.service';
 import {NEVER, tap, catchError, EMPTY} from 'rxjs';
 import {DialogService} from '../../../../shared/services/dialog.service';
-import {Router} from '@angular/router';
+import {LoadingMoreLoader} from '../../../../shared/loaders/loading-more/loading-more-loader/loading-more';
+import {LoadingMoreLoaderService} from '../../../../shared/loaders/loading-more/loading-more-loader.service';
 
 @Component({
   selector: 'app-animes',
@@ -17,11 +18,12 @@ import {Router} from '@angular/router';
     HeaderAdmin,
     AnimeItem,
     SearchAnime,
+    LoadingMoreLoader,
   ],
   templateUrl: './animes.html',
   styleUrl: './animes.css',
 })
-export class Animes {
+export class Animes implements OnInit {
   readonly dialog = inject(MatDialog);
 
   readonly search = signal<string>('');
@@ -30,13 +32,60 @@ export class Animes {
   readonly #animeService = inject(AnimeService);
   readonly #notification = inject(NotificationService);
   readonly #dialogService = inject(DialogService);
-  animes: any = this.#animeService.animes();
-  animesResource = rxResource({
-    stream: () => this.#animeService.getAllAnimes(0, 10, this.search())
-      .pipe(tap((pag) => {
-        this.resultsCount.set(pag.totalElements)
-      }))
-  });
+  animes: any = signal<any>([]);
+  loadedAnimesIds = new Set<string>();
+  readonly #loaderService = inject(LoadingMoreLoaderService);
+
+  onScroll(event: Event) {
+    const target = event.target as HTMLElement;
+
+    const pos = target.scrollTop + target.clientHeight;
+    const max = target.scrollHeight;
+
+    if (pos >= max - 200) {
+      this.#loaderService.show();
+      this.loadMoreAnimes();
+    }
+  }
+
+  constructor() {
+    this.#animeService.resetAnimePage();
+  }
+
+  ngOnInit(): void {
+    this.loadAnimes()
+  }
+
+  loadAnimes() {
+    this.#loaderService.show();
+    this.#animeService.resetAnimePage();
+    this.#animeService.getAllAnimes(this.search()).subscribe({
+      next: (res) => {
+        this.animes.set(res.content);
+        this.loadedAnimesIds.clear();
+        this.updateLoadedAnimesIds();
+      },
+      complete: () => this.#loaderService.hide()
+    });
+  }
+
+  loadMoreAnimes() {
+    this.#loaderService.show();
+    this.#animeService.getAllAnimes(this.search()).subscribe({
+      next: (res) => {
+        const newAnimes = res.content.filter((anime: { id: string; }) => !this.loadedAnimesIds.has(anime.id));
+
+        this.animes.update((current: any) => [...current, ...newAnimes]);
+
+        this.updateLoadedAnimesIds();
+        this.#loaderService.hide()
+      }
+    });
+  }
+
+  updateLoadedAnimesIds() {
+    this.animes().forEach((anime: { id: string; }) => this.loadedAnimesIds.add(anime.id))
+  }
 
   #animeToRemoveSignal = signal<string>('');
 
@@ -48,7 +97,7 @@ export class Animes {
         tap(() => {
           this.#notification.success('Anime deleted successfully');
           this.#animeToRemoveSignal.set('');
-          this.animesResource.reload();
+          this.loadAnimes();
         }),
         catchError(() => {
           this.#notification.error('Error deleting anime');
@@ -71,12 +120,12 @@ export class Animes {
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-        this.animesResource.reload()
+        this.loadAnimes()
       }
     });
   }
 
-  removeAnime(animeId: string){
+  removeAnime(animeId: string) {
     this.#dialogService.confirm({
       title: 'Delete Anime',
       message: `Are you sure you want to delete anime. This action cannot be undone.`,
@@ -91,16 +140,16 @@ export class Animes {
 
   onSearch(searchTerm: string): void {
     this.search.set(searchTerm);
-    this.animesResource.reload();
+    this.loadAnimes()
   }
 
   onClearSearch(): void {
     this.search.set('');
-    this.animesResource.reload();
+    this.loadAnimes()
   }
 
   onResetSearch(): void {
     this.search.set('');
-    this.animesResource.reload();
+    this.loadAnimes()
   }
 }
