@@ -1,21 +1,44 @@
-<app-header-admin/>
+<div class="page-container" (scroll)="onScroll($event)">
+  <div class="page-content">
+    <app-header-admin/>
 
-<app-search-anime
-  (search)="onSearch($event)"
-  (clearSearch)="onClearSearch()"
-  (resetSearch)="onResetSearch()"
-  [resultsCount]="resultsCount()"
-/>
+    <app-search-anime
+      (search)="onSearch($event)"
+      (clearSearch)="onClearSearch()"
+      (resetSearch)="onResetSearch()"
+      [resultsCount]="resultsCount()"
+    />
 
-<div class="animes-container">
-  <div class="animes-grid">
-    @for (anime of animes(); track anime.id) {
-      <app-anime-item [anime]="anime" (removeAnime)="removeAnime($event)"/>
-    }
+    <div class="animes-container">
+      @if (animes().length > 0) {
+        <div class="animes-grid">
+          @for (anime of animes(); track anime.id) {
+            <app-anime-item [anime]="anime" (removeAnime)="removeAnime($event)"/>
+          }
+        </div>
+        <app-loading-more-loader/>
+        <button class="custom-fab" (click)="openAnimeModal()">
+          <span class="icon">+</span>
+          <span class="text">Add New Anime</span>
+        </button>
+      } @else {
+        <div class="empty-state">
+          <div class="empty-state-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+              <polyline points="17 2 12 7 7 2"></polyline>
+            </svg>
+          </div>
+          <h2 class="empty-state-title">No Animes Available</h2>
+          <p class="empty-state-description">It looks like there are no animes in your collection yet.<br>Start by adding your first anime to begin your journey!</p>
+          <button class="empty-state-button" (click)="openAnimeModal()">
+            <span class="empty-state-button-icon">+</span>
+            <span class="empty-state-button-text">Add Your First Anime</span>
+          </button>
+        </div>
+      }
+    </div>
+
+
   </div>
 </div>
-
-<button class="custom-fab" (click)="openAnimeModal()">
-  <span class="icon">+</span>
-  <span class="text">Add New Anime</span>
-</button>
