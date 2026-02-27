@@ -44,7 +44,7 @@
 
 .animes-container {
   flex: 1;
-  padding: 20px 60px 120px 60px;
+  padding: 10px 60px 60px 60px;
   background-color: #000000;
 }
 
@@ -69,46 +69,46 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 500px;
+  min-height: 300px;
   text-align: center;
-  padding: 50px 40px;
-  max-width: 700px;
+  padding: 30px 24px;
+  max-width: 600px;
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.4);
-  border-radius: 20px;
+  border-radius: 16px;
   border: 1px solid rgba(244, 117, 33, 0.2);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5),
-              inset 0 0 60px rgba(244, 117, 33, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+              inset 0 0 40px rgba(244, 117, 33, 0.05);
   backdrop-filter: blur(10px);
 }
 
 .empty-state-icon {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   color: rgba(244, 117, 33, 0.7);
   animation: float 4s ease-in-out infinite;
 }
 
 .empty-state-icon svg {
-  width: 80px;
-  height: 80px;
-  filter: drop-shadow(0 0 10px rgba(244, 117, 33, 0.5));
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 0 8px rgba(244, 117, 33, 0.5));
 }
 
 .empty-state-title {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 16px;
-  letter-spacing: 1px;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .empty-state-description {
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.5;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   max-width: 500px;
 }
 
@@ -116,19 +116,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 18px 36px;
+  gap: 10px;
+  padding: 14px 28px;
   background: linear-gradient(135deg, #f47521, #ff8a40);
   color: #ffffff;
   border: none;
   border-radius: 50px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 6px 25px rgba(244, 117, 33, 0.4);
+  box-shadow: 0 4px 20px rgba(244, 117, 33, 0.4);
   position: relative;
   overflow: hidden;
   animation: subtlePulse 3s ease-in-out infinite;
@@ -148,7 +148,7 @@
 }
 
 .empty-state-button-icon {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 300;
   line-height: 1;
   display: flex;
@@ -178,78 +178,82 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-15px);
+    transform: translateY(-10px);
   }
 }
 
 @keyframes subtlePulse {
   0%, 100% {
-    box-shadow: 0 6px 25px rgba(244, 117, 33, 0.4);
+    box-shadow: 0 4px 20px rgba(244, 117, 33, 0.4);
   }
   50% {
-    box-shadow: 0 6px 30px rgba(244, 117, 33, 0.7);
+    box-shadow: 0 4px 25px rgba(244, 117, 33, 0.6);
   }
 }
 
 @media (max-width: 768px) {
   .empty-state {
-    min-height: 400px;
-    padding: 40px 24px;
-    border-radius: 16px;
+    min-height: 280px;
+    padding: 24px 20px;
+    border-radius: 14px;
     margin: 0 20px;
   }
 
   .empty-state-icon svg {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
   }
 
   .empty-state-title {
-    font-size: 28px;
+    font-size: 20px;
   }
 
   .empty-state-description {
-    font-size: 16px;
-    padding: 0 20px;
+    font-size: 15px;
+    padding: 0 16px;
   }
 
   .empty-state-button {
-    padding: 16px 30px;
-    font-size: 15px;
+    padding: 12px 24px;
+    font-size: 13px;
+  }
+
+  .empty-state-button-icon {
+    font-size: 18px;
   }
 }
 
 @media (max-width: 480px) {
   .empty-state {
-    min-height: 350px;
-    padding: 30px 16px;
-    border-radius: 14px;
+    min-height: 250px;
+    padding: 20px 16px;
+    border-radius: 12px;
     margin: 0 16px;
   }
 
   .empty-state-icon svg {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
   }
 
   .empty-state-title {
-    font-size: 24px;
+    font-size: 18px;
   }
 
   .empty-state-description {
-    font-size: 15px;
+    font-size: 14px;
     padding: 0 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .empty-state-button {
-    padding: 14px 24px;
-    font-size: 14px;
-    gap: 8px;
+    padding: 10px 20px;
+    font-size: 12px;
+    gap: 6px;
   }
 
   .empty-state-button-icon {
-    font-size: 20px;
+    font-size: 16px;
   }
 }
 
@@ -365,7 +369,7 @@
 
 @media (max-width: 768px) {
   .animes-container {
-    padding: 16px 16px 100px 16px;
+    padding: 10px 16px 60px 16px;
   }
 
   .animes-grid {
@@ -385,7 +389,7 @@
 
 @media (max-width: 480px) {
   .animes-container {
-    padding: 12px 12px 80px 12px;
+    padding: 8px 12px 60px 12px;
   }
 
   .animes-grid {

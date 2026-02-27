@@ -66,6 +66,7 @@ export class Animes implements OnInit {
     this.#animeService.resetAnimePage();
     this.#animeService.getAllAnimes(this.search()).subscribe({
       next: (res) => {
+        this.resultsCount.set(res.totalElements);
         this.animes.set(res.content);
         this.loadedAnimesIds.clear();
         this.updateLoadedAnimesIds();

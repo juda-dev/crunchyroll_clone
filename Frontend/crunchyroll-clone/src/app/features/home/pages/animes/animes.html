@@ -30,11 +30,14 @@
             </svg>
           </div>
           <h2 class="empty-state-title">No Animes Available</h2>
-          <p class="empty-state-description">It looks like there are no animes in your collection yet.<br>Start by adding your first anime to begin your journey!</p>
-          <button class="empty-state-button" (click)="openAnimeModal()">
-            <span class="empty-state-button-icon">+</span>
-            <span class="empty-state-button-text">Add Your First Anime</span>
-          </button>
+          <p class="empty-state-description">It looks like there are no animes available right now.
+          </p>
+          @if (!search()) {
+            <button class="empty-state-button" (click)="openAnimeModal()">
+              <span class="empty-state-button-icon">+</span>
+              <span class="empty-state-button-text">Add Your First Anime</span>
+            </button>
+          }
         </div>
       }
     </div>
