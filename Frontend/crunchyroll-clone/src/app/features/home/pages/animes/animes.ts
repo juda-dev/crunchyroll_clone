@@ -7,10 +7,11 @@ import {rxResource} from '@angular/core/rxjs-interop';
 import {MatDialog} from '@angular/material/dialog';
 import {AnimeForm} from '../../admin/components/forms/anime-form/anime-form';
 import {NotificationService} from '../../../../shared/services/notification.service';
-import {NEVER, tap, catchError, EMPTY} from 'rxjs';
+import {NEVER, tap, catchError, EMPTY, forkJoin} from 'rxjs';
 import {DialogService} from '../../../../shared/services/dialog.service';
 import {LoadingMoreLoader} from '../../../../shared/loaders/loading-more/loading-more-loader/loading-more';
 import {LoadingMoreLoaderService} from '../../../../shared/loaders/loading-more/loading-more-loader.service';
+import {FilesService} from '../../shared/services/files.service';
 
 @Component({
   selector: 'app-animes',
@@ -32,9 +33,11 @@ export class Animes implements OnInit {
   readonly #animeService = inject(AnimeService);
   readonly #notification = inject(NotificationService);
   readonly #dialogService = inject(DialogService);
+  readonly #loaderService = inject(LoadingMoreLoaderService);
+  readonly #fileService = inject(FilesService);
+
   animes: any = signal<any>([]);
   loadedAnimesIds = new Set<string>();
-  readonly #loaderService = inject(LoadingMoreLoaderService);
 
   isLoading = this.#loaderService.isLoading;
 
@@ -109,6 +112,34 @@ export class Animes implements OnInit {
     }
   })
 
+  #imagesToRemoveSignal = signal<{posterUuid: string, bannerUuid: string}>({bannerUuid: '', posterUuid: ''});
+
+  #imagesToRemoveResource = rxResource({
+    params: () => this.#imagesToRemoveSignal(),
+    stream: ({params: images}) => {
+      if (images.bannerUuid === '' && images.posterUuid === '') return NEVER;
+
+      const deleteObservables = [];
+      if (images.posterUuid !== '') {
+        deleteObservables.push(this.#fileService.deleteImage(images.posterUuid));
+      }
+      if (images.bannerUuid !== '') {
+        deleteObservables.push(this.#fileService.deleteImage(images.bannerUuid));
+      }
+
+      return forkJoin(deleteObservables).pipe(
+        tap(() => {
+          this.#notification.success('Images deleted successfully');
+          this.#imagesToRemoveSignal.set({bannerUuid: '', posterUuid: ''});
+        }),
+        catchError((error) => {
+          this.#notification.error(error.error?.message || 'Error deleting images');
+          return EMPTY;
+        })
+      );
+    }
+  })
+
   openAnimeModal() {
     const dialogRef = this.dialog.open(AnimeForm, {
       width: '95vw',
@@ -127,7 +158,7 @@ export class Animes implements OnInit {
     });
   }
 
-  removeAnime(animeId: string) {
+  removeAnime(anime: any) {
     this.#dialogService.confirm({
       title: 'Delete Anime',
       message: `Are you sure you want to delete anime. This action cannot be undone.`,
@@ -135,7 +166,8 @@ export class Animes implements OnInit {
       cancelText: 'Cancel'
     }).subscribe((confirmed) => {
       if (confirmed) {
-        this.#animeToRemoveSignal.set(animeId);
+        this.#animeToRemoveSignal.set(anime.id);
+        this.#imagesToRemoveSignal.set({posterUuid: anime.poster, bannerUuid: anime.banner});
       }
     });
   }

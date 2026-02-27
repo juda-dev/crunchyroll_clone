@@ -15,9 +15,9 @@ import {ImageViewer} from '../../../../../shared/components/image-viewer/image-v
 })
 export class AnimeItem {
   readonly anime = input.required<any>();
-  removeAnime = output<string>();
+  removeAnime = output<any>();
 
-  remove(animeId: string){
-    this.removeAnime.emit(animeId);
+  remove(anime: any){
+    this.removeAnime.emit(anime);
   }
 }

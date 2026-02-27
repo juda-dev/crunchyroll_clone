@@ -29,4 +29,8 @@ export class FilesService extends FilesServiceAbstract {
       filter(res => res.status !== 'pending')
     );
   }
+
+  override deleteImage(uuid: string): Observable<any> {
+    return this.#httpClient.get<{message: string}>(`${this.API_ENDPOINT}/delete/image/${uuid}`);
+  }
 }
