@@ -36,6 +36,8 @@ export class Animes implements OnInit {
   loadedAnimesIds = new Set<string>();
   readonly #loaderService = inject(LoadingMoreLoaderService);
 
+  isLoading = this.#loaderService.isLoading;
+
   onScroll(event: Event) {
     const target = event.target as HTMLElement;
 
