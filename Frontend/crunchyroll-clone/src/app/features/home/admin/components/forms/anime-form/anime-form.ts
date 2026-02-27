@@ -1,12 +1,14 @@
-import {Component, computed, inject, Signal, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AnimeService} from '../../../../shared/services/anime.service';
 import {FilesService} from '../../../../shared/services/files.service';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {NotificationService} from '../../../../../../shared/services/notification.service';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatProgressBar} from '@angular/material/progress-bar';
+import {HttpClient} from '@angular/common/http';
+import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-anime-form',
@@ -26,20 +28,76 @@ export class AnimeForm {
   readonly #filesService = inject(FilesService);
   readonly #dialogRef = inject(MatDialogRef<AnimeForm>);
   readonly #notification = inject(NotificationService);
+  readonly #http = inject(HttpClient);
+  readonly #dialogData = inject(MAT_DIALOG_DATA, { optional: true });
 
   isSaving = signal(false);
-  imagesState = signal({
-    poster: {preview: '', progress: 0, uploading: false},
-    banner: {preview: '', progress: 0, uploading: false}
-  });
+  isEditMode = signal(false);
+  animeId = signal<string>('');
+  originalPosterUuid = signal<string>('');
+  originalBannerUuid = signal<string>('');
 
-  form: Signal<FormGroup> = computed(() => this.#fb.group({
+  form = signal<FormGroup>(this.#fb.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
     categories: [[] as string[], Validators.required],
     poster: ['', [Validators.required, Validators.nullValidator]],
     banner: ['', [Validators.required, Validators.nullValidator]]
   }));
+
+  imagesState = signal({
+    poster: {preview: '', progress: 0, uploading: false},
+    banner: {preview: '', progress: 0, uploading: false}
+  });
+
+  constructor() {
+    if (this.#dialogData && this.#dialogData.anime) {
+      const anime = this.#dialogData.anime;
+      this.isEditMode.set(true);
+      this.animeId.set(anime.id);
+      this.originalPosterUuid.set(anime.poster);
+      this.originalBannerUuid.set(anime.banner);
+
+      this.form().patchValue({
+        name: anime.name,
+        description: anime.description,
+        categories: anime.categories || [],
+        poster: anime.poster,
+        banner: anime.banner
+      });
+
+      if (anime.poster) {
+        const url = `http://localhost:8080/files/images/animes/posters/${anime.poster}`;
+        let posterUrl: string = '';
+
+        this.#http.get(url, { responseType: 'blob' }).subscribe({
+          next: (blob: Blob) => {
+            posterUrl = URL.createObjectURL(blob);
+            this.updateImageState('poster', {
+              preview: posterUrl
+            });
+          },
+          error: () => this.#notification.error('Error downloading protected image')
+        });
+
+      }
+      if (anime.banner) {
+        const url = `http://localhost:8080/files/images/animes/banners/${anime.banner}`;
+        let bannerUrl: string = '';
+
+        this.#http.get(url, { responseType: 'blob' }).subscribe({
+          next: (blob: Blob) => {
+            bannerUrl = URL.createObjectURL(blob);
+            this.updateImageState('banner', {
+              preview: bannerUrl
+            });
+          },
+          error: () => this.#notification.error('Error downloading protected image')
+        });
+
+      }
+    }
+  }
 
   availableCategories = [
     'Action',
@@ -91,17 +149,39 @@ export class AnimeForm {
 
     this.isSaving.set(true);
 
-    this.#animeService.createAnime(this.form().getRawValue()).subscribe({
-      next: () => {
-        this.isSaving.set(false);
-        this.#dialogRef.close(true);
-        this.#notification.success('Anime created successfully')
-      },
-      error: () => {
-        this.isSaving.set(false);
-        this.#notification.error('Error creating anime');
-      }
-    });
+    const currentPosterUuid = this.form().get('poster')?.value;
+    const currentBannerUuid = this.form().get('banner')?.value;
+    const originalPosterUuid = this.originalPosterUuid();
+    const originalBannerUuid = this.originalBannerUuid();
+
+    if (this.isEditMode() && this.animeId()) {
+      const formData = this.form().getRawValue();
+      this.#animeService.updateAnime(this.animeId(), formData).subscribe({
+        next: (resp) => {
+          this.isSaving.set(false);
+          this.#dialogRef.close(true);
+          this.#notification.success(resp.message);
+
+          this.deleteOldImagesIfReplaced(originalPosterUuid, originalBannerUuid, currentPosterUuid, currentBannerUuid);
+        },
+        error: (resp) => {
+          this.isSaving.set(false);
+          this.#notification.error(resp.error.message);
+        }
+      })
+    } else {
+      this.#animeService.createAnime(this.form().getRawValue()).subscribe({
+        next: () => {
+          this.isSaving.set(false);
+          this.#dialogRef.close(true);
+          this.#notification.success('Anime created successfully');
+        },
+        error: () => {
+          this.isSaving.set(false);
+          this.#notification.error('Error creating anime');
+        }
+      });
+    }
   }
 
   private updateImageState(type: 'poster' | 'banner', partialState: Partial<any>) {
@@ -111,13 +191,54 @@ export class AnimeForm {
     }));
   }
 
+  private deleteOldImagesIfReplaced(
+    originalPosterUuid: string,
+    originalBannerUuid: string,
+    currentPosterUuid: string,
+    currentBannerUuid: string
+  ) {
+    const deleteObservables = [];
+
+    if (originalPosterUuid && originalPosterUuid !== currentPosterUuid) {
+      deleteObservables.push(this.#filesService.deleteImage(originalPosterUuid));
+    }
+
+    if (originalBannerUuid && originalBannerUuid !== currentBannerUuid) {
+      deleteObservables.push(this.#filesService.deleteImage(originalBannerUuid));
+    }
+
+    if (deleteObservables.length > 0) {
+      forkJoin(deleteObservables).subscribe({
+        next: () => {
+          this.#notification.success('Old images deleted successfully');
+          this.originalPosterUuid.set('');
+          this.originalBannerUuid.set('');
+        },
+        error: (resp) => {
+          this.#notification.error(resp.error.message)
+        }
+      });
+    }
+  }
+
   close() {
-    if (this.form().get('poster')?.value){
-      this.#filesService.deleteImage(this.form().get('poster')?.value).subscribe();
+    const currentPosterUuid = this.form().get('poster')?.value;
+    const currentBannerUuid = this.form().get('banner')?.value;
+    const originalPosterUuid = this.originalPosterUuid();
+    const originalBannerUuid = this.originalBannerUuid();
+
+    if (currentPosterUuid && currentPosterUuid !== originalPosterUuid) {
+      this.#filesService.deleteImage(currentPosterUuid).subscribe({
+        error: (resp) => this.#notification.error(resp.error.message)
+      });
     }
-    if (this.form().get('banner')?.value){
-      this.#filesService.deleteImage(this.form().get('banner')?.value).subscribe();
+
+    if (currentBannerUuid && currentBannerUuid !== originalBannerUuid) {
+      this.#filesService.deleteImage(currentBannerUuid).subscribe({
+        error: (resp) => this.#notification.error(resp.error.message)
+      });
     }
+
     this.#dialogRef.close();
   }
 

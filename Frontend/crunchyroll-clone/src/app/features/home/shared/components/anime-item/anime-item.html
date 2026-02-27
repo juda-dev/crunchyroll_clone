@@ -14,7 +14,7 @@
       <button mat-icon-button class="action-btn play-btn">
         <mat-icon>play_arrow</mat-icon>
       </button>
-      <button mat-icon-button class="action-btn edit-btn">
+      <button mat-icon-button class="action-btn edit-btn" (click)="edit(anime())">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button class="action-btn delete-btn" (click)="remove(anime())">

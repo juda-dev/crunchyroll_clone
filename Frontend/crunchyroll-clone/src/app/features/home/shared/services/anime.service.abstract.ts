@@ -10,4 +10,6 @@ export abstract class AnimeServiceAbstract{
   abstract removeAnime(animeId: string): Observable<any>;
 
   abstract resetAnimePage(): void;
+
+  abstract updateAnime(animeUuid: string, animeData: any): Observable<any>;
 }

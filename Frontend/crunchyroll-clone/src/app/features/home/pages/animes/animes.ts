@@ -141,7 +141,7 @@ export class Animes implements OnInit {
     }
   })
 
-  openAnimeModal() {
+  openAnimeModal(animeData?: any) {
     const dialogRef = this.dialog.open(AnimeForm, {
       width: '95vw',
       maxWidth: '1600px',
@@ -149,7 +149,8 @@ export class Animes implements OnInit {
       maxHeight: '95vh',
       panelClass: 'custom-dialog-container',
       disableClose: true,
-      autoFocus: false
+      autoFocus: false,
+      data: animeData ? { anime: animeData } : null
     });
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
@@ -157,6 +158,10 @@ export class Animes implements OnInit {
         this.loadAnimes()
       }
     });
+  }
+
+  editAnime(anime: any) {
+    this.openAnimeModal(anime);
   }
 
   removeAnime(anime: any) {

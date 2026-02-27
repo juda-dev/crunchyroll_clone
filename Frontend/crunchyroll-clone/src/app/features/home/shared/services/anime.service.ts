@@ -1,6 +1,6 @@
-import {computed, inject, Injectable, signal} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {AnimeServiceAbstract} from './anime.service.abstract';
-import {delay, EMPTY, finalize, Observable, of, tap} from "rxjs";
+import {delay, EMPTY, finalize, Observable, tap} from "rxjs";
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -38,4 +38,10 @@ export class AnimeService extends AnimeServiceAbstract {
   override resetAnimePage() {
     this.animePage.set(0);
   }
+
+  updateAnime(animeUuid: string, animeData: any): Observable<any> {
+    return this.#httpClient.put(`${this.API_ENDPOINT}/${animeUuid}`, animeData);
+  }
+
+
 }

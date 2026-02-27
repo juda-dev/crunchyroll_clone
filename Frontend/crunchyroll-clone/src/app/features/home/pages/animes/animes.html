@@ -14,7 +14,7 @@
       @if (animes().length > 0) {
         <div class="animes-grid">
           @for (anime of animes(); track anime.id) {
-            <app-anime-item [anime]="anime" (removeAnime)="removeAnime($event)"/>
+            <app-anime-item [anime]="anime" (removeAnime)="removeAnime($event)" (editAnime)="editAnime($event)"/>
           }
         </div>
         <button class="custom-fab" (click)="openAnimeModal()">
