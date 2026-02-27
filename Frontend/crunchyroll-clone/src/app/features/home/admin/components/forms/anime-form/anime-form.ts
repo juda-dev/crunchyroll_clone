@@ -112,6 +112,12 @@ export class AnimeForm {
   }
 
   close() {
+    if (this.form().get('poster')?.value){
+      this.#filesService.deleteImage(this.form().get('poster')?.value).subscribe();
+    }
+    if (this.form().get('banner')?.value){
+      this.#filesService.deleteImage(this.form().get('banner')?.value).subscribe();
+    }
     this.#dialogRef.close();
   }
 
