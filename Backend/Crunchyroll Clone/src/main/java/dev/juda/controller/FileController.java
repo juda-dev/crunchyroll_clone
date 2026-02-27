@@ -1,5 +1,6 @@
 package dev.juda.controller;
 
+import dev.juda.model.dto.response.MessageResponse;
 import dev.juda.model.dto.response.UploadResponse;
 import dev.juda.service.FileService;
 import org.springframework.core.io.Resource;
@@ -22,6 +23,18 @@ public class FileController {
     @PreAuthorize("hasRole('ADMIN')")
     public UploadResponse uploadImage(@RequestParam("file") MultipartFile file) {
         return fileService.storeImageFile(file);
+    }
+
+    @GetMapping( "/delete/image/{uuid}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public MessageResponse deleteImageFile(@PathVariable String uuid) {
+        return fileService.deleteImageFile(uuid);
+    }
+
+    @GetMapping( "/delete/video/{uuid}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public MessageResponse deleteVideoFile(@PathVariable String uuid) {
+        return fileService.deleteVideoFile(uuid);
     }
 
     @GetMapping("/images/animes/posters/{uuid}")

@@ -11,4 +11,6 @@ public interface FileService {
     UploadResponse storeImageFile(MultipartFile file);
     ResponseEntity<Resource> serveVideo(String uuid);
     ResponseEntity<Resource> serveImage(String uuid);
+    MessageResponse deleteImageFile(String uuid);
+    MessageResponse deleteVideoFile(String uuid);
 }

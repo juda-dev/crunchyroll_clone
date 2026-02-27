@@ -59,6 +59,16 @@ public class FileServiceImpl implements FileService {
         return storeFile(file, this.imageStorageLocation);
     }
 
+    @Override
+    public MessageResponse deleteImageFile(String uuid) {
+        return deleteFile(uuid, this.imageStorageLocation);
+    }
+
+    @Override
+    public MessageResponse deleteVideoFile(String uuid) {
+        return deleteFile(uuid, this.videoStorageLocation);
+    }
+
     private UploadResponse storeFile(MultipartFile file, Path storageLocation) {
         if (file.isEmpty()) throw new EmptyFileException();
 
@@ -72,6 +82,20 @@ public class FileServiceImpl implements FileService {
             return new UploadResponse(uuid, file.getOriginalFilename(), String.valueOf(file.getSize()));
         } catch (IOException ex) {
             throw new StorageDirectoryCreationFailedException();
+        }
+    }
+
+    private MessageResponse deleteFile(String uuid, Path storageLocation){
+        try{
+            Path filePath = FileHandlerUtil.findFileByUUID(storageLocation, uuid);
+
+            Files.delete(filePath);
+
+            return new MessageResponse("File deleted successfully");
+        } catch (IOException e) {
+            throw new FileNotFoundException();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
