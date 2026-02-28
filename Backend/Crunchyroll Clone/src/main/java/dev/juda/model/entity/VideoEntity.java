@@ -31,11 +31,9 @@ public class VideoEntity {
     private Boolean published;
 
     @Column(name = "src_uuid")
-    @JsonIgnore
     private String srcUuid;
 
     @Column(name = "poster_uuid")
-    @JsonIgnore
     private String posterUuid;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -56,24 +54,6 @@ public class VideoEntity {
     @PreUpdate
     private void preUpdate() {
         this.updatedAt = Instant.now();
-    }
-
-    @JsonProperty("src")
-    public String getSrc() {
-        if (srcUuid != null && !srcUuid.isEmpty()) {
-            String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-            return baseUrl + ApiPaths.VIDEO_SOURCES + srcUuid;
-        }
-        return null;
-    }
-
-    @JsonProperty("poster")
-    public String getPoster() {
-        if (posterUuid != null && !posterUuid.isEmpty()) {
-            String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-            return baseUrl + ApiPaths.VIDEO_POSTERS + posterUuid;
-        }
-        return null;
     }
 
     public UUID getId() {
