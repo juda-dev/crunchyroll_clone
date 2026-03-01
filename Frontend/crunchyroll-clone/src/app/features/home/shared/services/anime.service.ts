@@ -42,6 +42,4 @@ export class AnimeService extends AnimeServiceAbstract {
   updateAnime(animeUuid: string, animeData: any): Observable<any> {
     return this.#httpClient.put(`${this.API_ENDPOINT}/${animeUuid}`, animeData);
   }
-
-
 }
