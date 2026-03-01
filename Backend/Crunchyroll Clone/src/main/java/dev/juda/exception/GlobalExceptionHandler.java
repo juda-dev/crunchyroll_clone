@@ -185,6 +185,18 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(VideoNotFoundException.class)
+    public ErrorResponse handlerVideoNotFoundException() {
+        return new ErrorResponse(
+                VIDEO_NOT_FOUND.getCode(),
+                HttpStatus.NOT_FOUND,
+                VIDEO_NOT_FOUND.getMessage(),
+                null,
+                LocalDateTime.now()
+        );
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
