@@ -25,29 +25,38 @@ public class FileController {
         return fileService.storeImageFile(file);
     }
 
-    @GetMapping( "/delete/image/{uuid}")
+    @GetMapping("/delete/image/{uuid}")
     @PreAuthorize("hasRole('ADMIN')")
     public MessageResponse deleteImageFile(@PathVariable String uuid) {
         return fileService.deleteImageFile(uuid);
     }
 
-    @GetMapping( "/delete/video/{uuid}")
+    @GetMapping("/delete/video/{uuid}")
     @PreAuthorize("hasRole('ADMIN')")
     public MessageResponse deleteVideoFile(@PathVariable String uuid) {
         return fileService.deleteVideoFile(uuid);
     }
 
     @GetMapping("/images/animes/posters/{uuid}")
-    public ResponseEntity<Resource> serveAnimePoster(
-            @PathVariable String uuid,
-            @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Resource> serveAnimePoster(@PathVariable String uuid) {
         return fileService.serveImage(uuid);
     }
 
     @GetMapping("/images/animes/banners/{uuid}")
-    public ResponseEntity<Resource> serveAnimeBanner(
-            @PathVariable String uuid,
-            @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Resource> serveAnimeBanner(@PathVariable String uuid) {
         return fileService.serveImage(uuid);
+    }
+
+    @PostMapping("/upload/video")
+    @PreAuthorize("hasRole('ADMIN')")
+    public UploadResponse uploadVideo(@RequestParam("file") MultipartFile file) {
+        return fileService.storeVideoFile(file);
+    }
+
+    @GetMapping("/videos/{videoUuid}")
+    public ResponseEntity<Resource> serveVideo(
+            @PathVariable String videoUuid,
+            @RequestHeader HttpHeaders headers) {
+        return fileService.serveVideo(videoUuid);
     }
 }
