@@ -1,10 +1,6 @@
 package dev.juda.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import dev.juda.util.ApiPaths;
 import jakarta.persistence.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.Instant;
 import java.util.Objects;
