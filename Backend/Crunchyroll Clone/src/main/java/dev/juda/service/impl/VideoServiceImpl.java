@@ -1,5 +1,6 @@
 package dev.juda.service.impl;
 
+import dev.juda.exception.VideoNotFoundException;
 import dev.juda.mapper.VideoMapper;
 import dev.juda.model.dto.request.SetVideoRequest;
 import dev.juda.model.dto.response.MessageResponse;
@@ -48,12 +49,29 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    @Transactional
     public MessageResponse updateVideo(UUID videoId, SetVideoRequest request) {
-        return null;
+        VideoEntity entity = videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new);
+
+        entity.setTitle(request.title());
+        entity.setDescription(request.description());
+        entity.setDuration(request.duration());
+        entity.setPublished(request.published());
+        entity.setSrcUuid(request.src());
+        entity.setPosterUuid(request.poster());
+
+        videoRepository.save(entity);
+
+        return new MessageResponse("Video Updated Successfully");
     }
 
     @Override
+    @Transactional
     public MessageResponse deleteVideo(UUID videoId) {
-        return null;
+        VideoEntity entity = videoRepository.findById(videoId).orElseThrow(VideoNotFoundException::new);
+
+        videoRepository.delete(entity);
+
+        return new MessageResponse("Video Deleted Successfully");
     }
 }
