@@ -1,0 +1,30 @@
+<div class="anime-header" role="banner" aria-label="Anime details header">
+  <div class="banner-container">
+    <div class="banner-overlay"></div>
+    <div class="banner-image"
+         [style.backgroundImage]="imageSrc() ? 'url(' + imageSrc() + ')' : 'none'"></div>
+  </div>
+
+  <div class="content-container">
+    <div class="header-content">
+      <h1 class="anime-title">{{ anime().name }}</h1>
+
+      <p class="anime-description">{{ anime().description }}</p>
+
+      <div class="categories-container">
+        <span class="category-label">Categories:</span>
+        <div class="categories-list">
+          @for (category of anime().categories; track category.id) {
+            <span class="category-tag">{{ category }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="developer-credit">
+      Developed by JuDa Dev
+    </div>
+  </div>
+
+  <div class="transition-gradient"></div>
+</div>
