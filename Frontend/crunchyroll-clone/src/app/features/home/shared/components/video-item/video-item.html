@@ -1,0 +1,33 @@
+<div class="video-card">
+  <div class="poster-wrapper">
+    <div class="poster-image">
+      <app-image-viewer [imageId]="video().poster" [altText]="video().title + ' Poster'" />
+      <div class="play-icon-overlay">
+        <mat-icon class="play-icon">play_arrow</mat-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="default-info">
+    <h4 class="anime-name">{{ animeName() }}</h4>
+    <h3 class="video-title">{{ video().title }}</h3>
+  </div>
+
+  <div class="hover-overlay">
+    <h4 class="overlay-anime-name">{{ animeName() }}</h4>
+    <h3 class="overlay-video-title">{{ video().title }}</h3>
+    <p class="overlay-description">{{ video().description }}</p>
+    <div class="action-buttons">
+      <button mat-icon-button class="action-btn play-btn" (click)="playVideo()">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+      <button mat-icon-button class="action-btn edit-btn" (click)="editVideo(video())">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button class="action-btn delete-btn" (click)="removeVideo()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
