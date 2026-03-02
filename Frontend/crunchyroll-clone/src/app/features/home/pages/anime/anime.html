@@ -1,2 +1,24 @@
-<app-header-admin/>
-<app-anime-header [id]="id()"/>
+<div class="page-container">
+  <div class="page-content">
+    <app-header-admin/>
+    <app-anime-header [id]="id()" (animeName)="setAnimeName($event)"/>
+
+    <div class="videos-container">
+      <div class="videos-grid">
+        @for (video of videos(); track video.id) {
+          <app-video-item
+            [animeName]="animeName()"
+            [video]="video"
+            (updateVideo)="editVideo($event)"
+          />
+        }
+      </div>
+      <button class="custom-fab" (click)="openVideoModal()">
+        <span class="icon">+</span>
+        <span class="text">Add New Video</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
