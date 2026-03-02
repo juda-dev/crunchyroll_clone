@@ -1,8 +1,8 @@
-import {Component, computed, effect, inject, input, signal} from '@angular/core';
+import {Component, computed, effect, inject, input, output, signal} from '@angular/core';
 import {AnimeService} from '../../services/anime.service';
 import {rxResource} from '@angular/core/rxjs-interop';
 import {FilesService} from '../../services/files.service';
-import {of} from 'rxjs';
+import {of, tap} from 'rxjs';
 
 @Component({
   selector: 'app-anime-header',
@@ -14,10 +14,13 @@ export class AnimeHeader {
   readonly #fileService = inject(FilesService);
   readonly #animeService = inject(AnimeService);
   id = input.required<string>();
+  animeName = output<string>();
 
   readonly #animeResource = rxResource({
     params: () => this.id(),
-    stream: () => this.#animeService.getAnime(this.id())
+    stream: () => this.#animeService.getAnime(this.id()).pipe(tap((anime) => {
+      this.animeName.emit(anime.name);
+    }))
   });
 
   readonly anime = computed(() => this.#animeResource.value() ?? {});
