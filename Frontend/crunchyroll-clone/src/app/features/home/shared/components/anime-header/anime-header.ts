@@ -1,6 +1,5 @@
 import {Component, computed, effect, inject, input, signal} from '@angular/core';
 import {AnimeService} from '../../services/anime.service';
-import {Router} from '@angular/router';
 import {rxResource} from '@angular/core/rxjs-interop';
 import {FilesService} from '../../services/files.service';
 import {of} from 'rxjs';
@@ -14,7 +13,6 @@ import {of} from 'rxjs';
 export class AnimeHeader {
   readonly #fileService = inject(FilesService);
   readonly #animeService = inject(AnimeService);
-  readonly #router = inject(Router);
   id = input.required<string>();
 
   readonly #animeResource = rxResource({

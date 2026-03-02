@@ -1,5 +1,6 @@
 import {Component, effect, inject, input, OnDestroy, signal, untracked} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {FilesService} from '../../../features/home/shared/services/files.service';
+import {NotificationService} from '../../services/notification.service';
 
 @Component({
   selector: 'app-image-viewer',
@@ -8,7 +9,8 @@ import {HttpClient} from '@angular/common/http';
   styleUrl: './image-viewer.css',
 })
 export class ImageViewer implements OnDestroy {
-  readonly #http = inject(HttpClient);
+  readonly #fileService = inject(FilesService);
+  readonly #notificationService = inject(NotificationService);
 
   readonly imageId = input.required<string>();
   readonly altText = input<string>('Anime Image');
@@ -28,15 +30,14 @@ export class ImageViewer implements OnDestroy {
     this.cleanupMemory();
     this.imageSrc.set(null);
 
-    const url = `http://localhost:8080/files/images/animes/posters/${id}`;
-
-    this.#http.get(url, { responseType: 'blob' }).subscribe({
+    this.#fileService.serveImage(id).subscribe({
       next: (blob: Blob) => {
-        const objectUrl = URL.createObjectURL(blob);
-        this.imageSrc.set(objectUrl);
+        this.imageSrc.set(URL.createObjectURL(blob))
       },
-      error: (err) => console.error('Error downloading protected image', err)
-    });
+      error: (resp) => {
+        this.#notificationService.error(resp.error.message);
+      }
+    })
   }
 
   ngOnDestroy() {
