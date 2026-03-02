@@ -82,4 +82,10 @@ public class AnimeServiceImpl implements AnimeService {
 
         return new MessageResponse("Anime deleted successfully");
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public AnimeResponse getAnime(UUID id) {
+        return animeRepository.findById(id).map(AnimeMapper::entityToResponse).orElseThrow(AnimeNotFoundException::new);
+    }
 }

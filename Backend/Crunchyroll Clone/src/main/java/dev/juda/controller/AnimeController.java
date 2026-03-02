@@ -42,6 +42,12 @@ public class AnimeController {
         return animeService.updateAnime(id, request);
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public AnimeResponse getAnime(@PathVariable UUID id) {
+        return animeService.getAnime(id);
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public MessageResponse deleteAnime(@PathVariable UUID id) {

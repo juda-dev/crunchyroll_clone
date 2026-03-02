@@ -15,4 +15,6 @@ public interface AnimeService {
     MessageResponse updateAnime(UUID id, SetAnimeRequest request);
 
     MessageResponse deleteAnime(UUID id);
+
+    AnimeResponse getAnime(UUID id);
 }
