@@ -39,11 +39,11 @@ export class AnimeService extends AnimeServiceAbstract {
     this.animePage.set(0);
   }
 
-  updateAnime(animeUuid: string, animeData: any): Observable<any> {
+  override updateAnime(animeUuid: string, animeData: any): Observable<any> {
     return this.#httpClient.put(`${this.API_ENDPOINT}/${animeUuid}`, animeData);
   }
 
-  getAnime(animeUuid: string): Observable<any> {
+  override getAnime(animeUuid: string): Observable<any> {
     return this.#httpClient.get<any>(`${this.API_ENDPOINT}/${animeUuid}`);
   }
 }
