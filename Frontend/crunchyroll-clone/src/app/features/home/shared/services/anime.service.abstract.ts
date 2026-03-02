@@ -12,4 +12,6 @@ export abstract class AnimeServiceAbstract{
   abstract resetAnimePage(): void;
 
   abstract updateAnime(animeUuid: string, animeData: any): Observable<any>;
+
+  abstract getAnime(animeUuid: string): Observable<any>;
 }

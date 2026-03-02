@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {FilesServiceAbstract} from './files.service.abstract';
 import {filter, map, Observable} from 'rxjs';
 import {HttpClient, HttpEventType} from '@angular/common/http';
@@ -33,4 +33,10 @@ export class FilesService extends FilesServiceAbstract {
   override deleteImage(uuid: string): Observable<any> {
     return this.#httpClient.get<{message: string}>(`${this.API_ENDPOINT}/delete/image/${uuid}`);
   }
+
+  serveImage(uuid: string): Observable<Blob> {
+    return this.#httpClient.get(`${this.API_ENDPOINT}/images/animes/posters/${uuid}`, { responseType: 'blob' });
+  }
+
+
 }

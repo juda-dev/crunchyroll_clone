@@ -17,7 +17,7 @@ export class AnimeService extends AnimeServiceAbstract {
     this.loading.set(true);
 
     return this.#httpClient.get<any>(`${this.API_ENDPOINT}?page=${this.animePage()}&size=10&search=${search}`).pipe(
-      delay(1000),
+      delay(350),
       tap(() => {
         this.animePage.update(page => page + 1);
       }),
@@ -41,5 +41,9 @@ export class AnimeService extends AnimeServiceAbstract {
 
   updateAnime(animeUuid: string, animeData: any): Observable<any> {
     return this.#httpClient.put(`${this.API_ENDPOINT}/${animeUuid}`, animeData);
+  }
+
+  getAnime(animeUuid: string): Observable<any> {
+    return this.#httpClient.get<any>(`${this.API_ENDPOINT}/${animeUuid}`);
   }
 }
