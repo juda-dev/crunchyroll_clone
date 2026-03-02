@@ -17,6 +17,7 @@ export class AnimeItem {
   readonly anime = input.required<any>();
   removeAnime = output<any>();
   editAnime = output<any>();
+  viewAnime = output<any>();
 
   remove(anime: any){
     this.removeAnime.emit(anime);
@@ -24,5 +25,9 @@ export class AnimeItem {
 
   edit(anime: any) {
     this.editAnime.emit(anime);
+  }
+
+  view(anime: any){
+    this.viewAnime.emit(anime);
   }
 }

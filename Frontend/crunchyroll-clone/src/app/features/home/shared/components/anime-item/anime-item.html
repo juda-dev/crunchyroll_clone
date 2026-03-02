@@ -11,7 +11,7 @@
     <h3 class="overlay-title">{{ anime().name }}</h3>
     <p class="description">{{ anime().description }}</p>
     <div class="action-buttons">
-      <button mat-icon-button class="action-btn play-btn">
+      <button mat-icon-button class="action-btn play-btn" (click)="view(anime())">
         <mat-icon>play_arrow</mat-icon>
       </button>
       <button mat-icon-button class="action-btn edit-btn" (click)="edit(anime())">

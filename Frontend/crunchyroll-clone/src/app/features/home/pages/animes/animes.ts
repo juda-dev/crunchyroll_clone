@@ -12,6 +12,8 @@ import {DialogService} from '../../../../shared/services/dialog.service';
 import {LoadingMoreLoader} from '../../../../shared/loaders/loading-more/loading-more-loader/loading-more';
 import {LoadingMoreLoaderService} from '../../../../shared/loaders/loading-more/loading-more-loader.service';
 import {FilesService} from '../../shared/services/files.service';
+import {Router} from '@angular/router';
+import {HOME_PAGES} from '../../home.routes';
 
 @Component({
   selector: 'app-animes',
@@ -35,6 +37,7 @@ export class Animes implements OnInit {
   readonly #dialogService = inject(DialogService);
   readonly #loaderService = inject(LoadingMoreLoaderService);
   readonly #fileService = inject(FilesService);
+  readonly #router = inject(Router);
 
   animes: any = signal<any>([]);
   loadedAnimesIds = new Set<string>();
@@ -176,6 +179,10 @@ export class Animes implements OnInit {
         this.#imagesToRemoveSignal.set({posterUuid: anime.poster, bannerUuid: anime.banner});
       }
     });
+  }
+
+  viewAnime(anime: any){
+    this.#router.navigate([HOME_PAGES.HOME, HOME_PAGES.ANIMES, anime.id])
   }
 
   onSearch(searchTerm: string): void {
