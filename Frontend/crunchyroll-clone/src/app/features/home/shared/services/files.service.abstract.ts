@@ -6,5 +6,8 @@ export abstract class FilesServiceAbstract{
   abstract uploadImage(file: File): Observable<any>;
   abstract deleteImage(uuid: string): Observable<any>;
   abstract serveImage(uuid: string): Observable<Blob>;
+  abstract uploadVideo(file: File): Observable<any>;
+  abstract deleteVideo(uuid: string): Observable<any>;
+  abstract serveVideo(uuid: String): Observable<any>;
 
 }
