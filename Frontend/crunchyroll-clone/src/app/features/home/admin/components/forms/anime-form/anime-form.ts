@@ -7,7 +7,6 @@ import {NotificationService} from '../../../../../../shared/services/notificatio
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatProgressBar} from '@angular/material/progress-bar';
-import {HttpClient} from '@angular/common/http';
 import {forkJoin} from 'rxjs';
 
 @Component({
@@ -28,8 +27,7 @@ export class AnimeForm {
   readonly #filesService = inject(FilesService);
   readonly #dialogRef = inject(MatDialogRef<AnimeForm>);
   readonly #notification = inject(NotificationService);
-  readonly #http = inject(HttpClient);
-  readonly #dialogData = inject(MAT_DIALOG_DATA, { optional: true });
+  readonly #dialogData = inject(MAT_DIALOG_DATA, {optional: true});
 
   isSaving = signal(false);
   isEditMode = signal(false);
@@ -67,34 +65,20 @@ export class AnimeForm {
       });
 
       if (anime.poster) {
-        const url = `http://localhost:8080/files/images/animes/posters/${anime.poster}`;
-        let posterUrl: string = '';
-
-        this.#http.get(url, { responseType: 'blob' }).subscribe({
+        this.#filesService.serveImage(anime.poster).subscribe({
           next: (blob: Blob) => {
-            posterUrl = URL.createObjectURL(blob);
-            this.updateImageState('poster', {
-              preview: posterUrl
-            });
+            this.updateImageState('poster', {preview: URL.createObjectURL(blob)})
           },
           error: () => this.#notification.error('Error downloading protected image')
-        });
-
+        })
       }
       if (anime.banner) {
-        const url = `http://localhost:8080/files/images/animes/banners/${anime.banner}`;
-        let bannerUrl: string = '';
-
-        this.#http.get(url, { responseType: 'blob' }).subscribe({
+        this.#filesService.serveImage(anime.banner).subscribe({
           next: (blob: Blob) => {
-            bannerUrl = URL.createObjectURL(blob);
-            this.updateImageState('banner', {
-              preview: bannerUrl
-            });
+            this.updateImageState('banner', {preview: URL.createObjectURL(blob)})
           },
           error: () => this.#notification.error('Error downloading protected image')
-        });
-
+        })
       }
     }
   }
