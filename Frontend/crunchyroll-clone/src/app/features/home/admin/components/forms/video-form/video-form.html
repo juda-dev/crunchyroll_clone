@@ -1,0 +1,126 @@
+<div class="form-container" (click)="$event.stopPropagation()">
+  <header class="form-header">
+    <h1>
+      @if (isEditMode()) {
+        Edit Video
+      } @else {
+        Add New Video
+      }
+    </h1>
+    <button mat-icon-button (click)="close()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+
+  <form [formGroup]="form()" (ngSubmit)="onSubmit()" class="form-content">
+    <div class="form-fields">
+      <div class="custom-field">
+        <label for="title">Title</label>
+        <input id="title" type="text" formControlName="title" placeholder="Enter the video title">
+        @if (form().get('title')?.invalid && form().get('title')?.touched) {
+          <div class="error-message">Title is required.</div>
+        }
+      </div>
+
+      <div class="custom-field">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" rows="5" placeholder="Enter a brief description..."></textarea>
+        @if (form().get('description')?.invalid && form().get('description')?.touched) {
+          <div class="error-message">Description is required.</div>
+        }
+      </div>
+
+      <div class="custom-field">
+        <label for="duration">Duration (seconds)</label>
+        <input id="duration" type="number" formControlName="duration" placeholder="Duration in seconds" readonly>
+        @if (form().get('duration')?.invalid && form().get('duration')?.touched) {
+          <div class="error-message">Duration is required.</div>
+        }
+      </div>
+
+      <div class="custom-field">
+        <label>Published Status</label>
+        <div class="published-toggle">
+          <button type="button"
+                  class="toggle-btn"
+                  [class.published]="form().get('published')?.value"
+                  [class.not-published]="!form().get('published')?.value"
+                  (click)="togglePublished()">
+            <span class="toggle-label">
+              @if (form().get('published')?.value) {
+                Published
+              } @else {
+                Not Published
+              }
+            </span>
+            <span class="toggle-indicator"></span>
+          </button>
+        </div>
+        @if (form().get('published')?.invalid && form().get('published')?.touched) {
+          <div class="error-message">Published status is required.</div>
+        }
+      </div>
+    </div>
+
+    <div class="video-uploaders">
+      <div class="poster-section">
+        <div class="uploader-box poster-box" (click)="posterInput.click()">
+          <input type="file" hidden #posterInput (change)="onFileSelected($event, 'poster')" accept="image/*">
+          @if (filesState().poster.preview) {
+            <img [src]="filesState().poster.preview" class="preview-image">
+          } @else {
+            <div class="upload-placeholder">
+              <mat-icon>photo_camera</mat-icon>
+              <span>Poster</span>
+              <small>(16:9)</small>
+            </div>
+          }
+          @if (filesState().poster.uploading) {
+            <mat-progress-bar mode="determinate" [value]="filesState().poster.progress"></mat-progress-bar>
+          }
+        </div>
+        @if (form().get('poster')?.invalid && form().get('poster')?.touched) {
+          <div class="error-message center-text">Poster required.</div>
+        }
+      </div>
+
+      <div class="src-section">
+        <div class="uploader-box src-box" (click)="srcInput.click()">
+          <input type="file" hidden #srcInput (change)="onFileSelected($event, 'src')" accept="video/*">
+          @if (filesState().src.preview) {
+            <video [src]="filesState().src.preview" class="preview-video" controls></video>
+          } @else {
+            <div class="upload-placeholder">
+              <mat-icon>videocam</mat-icon>
+              <span>Video</span>
+              <small>(16:9)</small>
+            </div>
+          }
+          @if (filesState().src.uploading) {
+            <mat-progress-bar mode="determinate" [value]="filesState().src.progress"></mat-progress-bar>
+          }
+        </div>
+        @if (form().get('src')?.invalid && form().get('src')?.touched) {
+          <div class="error-message center-text">Video required.</div>
+        }
+      </div>
+    </div>
+  </form>
+
+  <footer class="form-footer">
+    <button mat-stroked-button (click)="close()" class="cancel-btn">Cancel</button>
+    <button mat-flat-button (click)="onSubmit()" [disabled]="form().invalid || isSaving()" class="save-btn">
+      @if (isSaving()) {
+        <span>Saving...</span>
+      } @else {
+        <span>
+          @if (isEditMode()) {
+            Update Video
+          } @else {
+            Save Video
+          }
+        </span>
+      }
+    </button>
+  </footer>
+</div>
