@@ -25,13 +25,13 @@ public class FileController {
         return fileService.storeImageFile(file);
     }
 
-    @GetMapping("/delete/image/{uuid}")
+    @DeleteMapping("/delete/image/{uuid}")
     @PreAuthorize("hasRole('ADMIN')")
     public MessageResponse deleteImageFile(@PathVariable String uuid) {
         return fileService.deleteImageFile(uuid);
     }
 
-    @GetMapping("/delete/video/{uuid}")
+    @DeleteMapping("/delete/video/{uuid}")
     @PreAuthorize("hasRole('ADMIN')")
     public MessageResponse deleteVideoFile(@PathVariable String uuid) {
         return fileService.deleteVideoFile(uuid);
