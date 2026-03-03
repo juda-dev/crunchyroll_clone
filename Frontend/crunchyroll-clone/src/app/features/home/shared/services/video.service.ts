@@ -16,7 +16,7 @@ export class VideoService extends VideoServiceAbstract {
 
       this.loading.set(true);
 
-      return this.#httpClient.get<any>(`${this.API_ENDPOINT}/${animeUuid}?page=${this.videosPage()}&size=8`).pipe(
+      return this.#httpClient.get<any>(`${this.API_ENDPOINT}/${animeUuid}?page=${this.videosPage()}&size=4`).pipe(
         delay(350),
         tap(() => {
           this.videosPage.update(page => page + 1);

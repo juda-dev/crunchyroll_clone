@@ -7,13 +7,15 @@ import {LoadingMoreLoaderService} from '../../../../shared/loaders/loading-more/
 import {MatDialog} from '@angular/material/dialog';
 import {VideoForm} from '../../admin/components/forms/video-form/video-form';
 import {NotificationService} from '../../../../shared/services/notification.service';
+import {LoadingMoreLoader} from '../../../../shared/loaders/loading-more/loading-more-loader/loading-more';
 
 @Component({
   selector: 'app-anime',
   imports: [
     HeaderAdmin,
     AnimeHeader,
-    VideoItem
+    VideoItem,
+    LoadingMoreLoader
   ],
   templateUrl: './anime.html',
   styleUrl: './anime.css',
@@ -31,6 +33,18 @@ export class Anime implements OnInit {
   isLoading = this.#loaderService.isLoading;
 
   id = input.required<string>();
+
+  onScroll(event: Event) {
+    const target = event.target as HTMLElement;
+
+    const pos = target.scrollTop + target.clientHeight;
+    const max = target.scrollHeight;
+
+    if (pos >= max - 200) {
+      this.#loaderService.show();
+      this.loadMoreVideos();
+    }
+  }
 
   constructor() {
     this.#videoService.resetVideosPage();
@@ -54,6 +68,20 @@ export class Anime implements OnInit {
         this.updateLoadedVideosIds();
       },
       complete: () => this.#loaderService.hide()
+    });
+  }
+
+  loadMoreVideos() {
+    this.#loaderService.show();
+    this.#videoService.getAllVideosAnime(this.id()).subscribe({
+      next: (res) => {
+        const newVideos = res.content.filter((video: { id: string; }) => !this.loadedVideosIds.has(video.id));
+
+        this.videos.update((current: any) => [...current, ...newVideos]);
+
+        this.updateLoadedVideosIds();
+        this.#loaderService.hide()
+      }
     });
   }
 

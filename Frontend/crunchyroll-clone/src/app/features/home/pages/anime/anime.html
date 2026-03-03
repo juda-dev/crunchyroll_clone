@@ -1,9 +1,10 @@
-<div class="page-container">
+<div class="page-container" (scroll)="onScroll($event)">
   <div class="page-content">
     <app-header-admin/>
     <app-anime-header [id]="id()" (animeName)="setAnimeName($event)"/>
 
     <div class="videos-container">
+      <app-loading-more-loader />
       <div class="videos-grid">
         @for (video of videos(); track video.id) {
           <app-video-item
