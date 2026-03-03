@@ -20,6 +20,7 @@ export class VideoItem {
   readonly #fileService = inject(FilesService);
 
   updateVideo = output<any>();
+  deleteVideo = output<any>();
 
   playVideo() {
   }
@@ -28,6 +29,7 @@ export class VideoItem {
     this.updateVideo.emit(video);
   }
 
-  removeVideo() {
+  removeVideo(video: any) {
+    this.deleteVideo.emit(video);
   }
 }

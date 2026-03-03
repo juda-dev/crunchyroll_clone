@@ -8,6 +8,10 @@ import {MatDialog} from '@angular/material/dialog';
 import {VideoForm} from '../../admin/components/forms/video-form/video-form';
 import {NotificationService} from '../../../../shared/services/notification.service';
 import {LoadingMoreLoader} from '../../../../shared/loaders/loading-more/loading-more-loader/loading-more';
+import {rxResource} from '@angular/core/rxjs-interop';
+import {catchError, EMPTY, forkJoin, NEVER, tap} from 'rxjs';
+import {FilesService} from '../../shared/services/files.service';
+import {DialogService} from '../../../../shared/services/dialog.service';
 
 @Component({
   selector: 'app-anime',
@@ -23,6 +27,8 @@ import {LoadingMoreLoader} from '../../../../shared/loaders/loading-more/loading
 export class Anime implements OnInit {
   readonly #videoService = inject(VideoService);
   readonly #loaderService = inject(LoadingMoreLoaderService);
+  readonly #fileService = inject(FilesService);
+  readonly #dialogService = inject(DialogService);
   readonly dialog = inject(MatDialog);
   readonly #notification = inject(NotificationService);
   animeName = signal<string>('');
@@ -113,5 +119,65 @@ export class Anime implements OnInit {
 
   editVideo(video: any) {
     this.openVideoModal(video);
+  }
+
+  #videoToRemoveSignal = signal<string>('');
+
+  #videoToRemoveResource = rxResource({
+    params: () => this.#videoToRemoveSignal(),
+    stream: ({params: videoUuid}) => {
+      if (videoUuid == '') return NEVER;
+
+      return this.#videoService.deleteVideoMetadata(videoUuid).pipe(
+        tap(() => {
+          this.#notification.success('Video deleted successfully');
+          this.#videoToRemoveSignal.set('');
+          this.loadVideos();
+        }),
+        catchError(() => {
+          this.#notification.error('Error deleting video');
+          return EMPTY;
+        })
+      )
+    }
+  })
+
+  #filesToRemoveSignal = signal<{posterUuid: string, videoUuid: string}>({posterUuid: '', videoUuid: ''});
+
+  #filesToRemoveResource = rxResource({
+    params: () => this.#filesToRemoveSignal(),
+    stream: ({params: files}) => {
+      if (files.posterUuid == '' && files.videoUuid == '') return NEVER;
+
+      const deleteObservables = [];
+
+      if (files.posterUuid != '') deleteObservables.push(this.#fileService.deleteImage(files.posterUuid));
+      if (files.videoUuid != '') deleteObservables.push(this.#fileService.deleteVideo(files.videoUuid));
+
+      return forkJoin(deleteObservables).pipe(
+        tap(() => {
+          this.#notification.success('Files deleted successfully');
+          this.#filesToRemoveSignal.set({videoUuid: '', posterUuid: ''});
+        }),
+        catchError((error) => {
+          this.#notification.error(error.error?.message || 'Error deleting files');
+          return EMPTY;
+        })
+      )
+    }
+  })
+
+  deleteVideo(video: any){
+    this.#dialogService.confirm({
+      title: 'Delete Video',
+      message: `Are you sure you want to delete video. This action cannot be undone.`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    }).subscribe((confirmed) => {
+      if (confirmed) {
+        this.#videoToRemoveSignal.set(video.id);
+        this.#filesToRemoveSignal.set({videoUuid: video.src, posterUuid: video.poster});
+      }
+    });
   }
 }
