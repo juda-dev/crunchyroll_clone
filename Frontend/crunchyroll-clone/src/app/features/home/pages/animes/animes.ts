@@ -1,7 +1,8 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {HeaderAdmin} from '../../admin/components/header-admin/header-admin';
 import {AnimeItem} from '../../shared/components/anime-item/anime-item';
 import {SearchAnime} from '../../shared/components/search-anime/search-anime';
+import {AnimeCarousel} from '../../../../shared/components/anime-carousel/anime-carousel';
 import {AnimeService} from '../../shared/services/anime.service';
 import {rxResource} from '@angular/core/rxjs-interop';
 import {MatDialog} from '@angular/material/dialog';
@@ -19,6 +20,7 @@ import {HOME_PAGES} from '../../home.routes';
   selector: 'app-animes',
   imports: [
     HeaderAdmin,
+    AnimeCarousel,
     AnimeItem,
     SearchAnime,
     LoadingMoreLoader,
@@ -40,6 +42,7 @@ export class Animes implements OnInit {
   readonly #router = inject(Router);
 
   animes: any = signal<any>([]);
+  randomAnimes: any = signal<any>([]);
   loadedAnimesIds = new Set<string>();
 
   isLoading = this.#loaderService.isLoading;
@@ -50,7 +53,7 @@ export class Animes implements OnInit {
     const pos = target.scrollTop + target.clientHeight;
     const max = target.scrollHeight;
 
-    if (pos >= max - 200) {
+    if (pos >= max ) {
       this.#loaderService.show();
       this.loadMoreAnimes();
     }
@@ -61,7 +64,8 @@ export class Animes implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAnimes()
+    this.loadRandomAnimes();
+    this.loadAnimes();
   }
 
   loadAnimes() {
@@ -76,6 +80,14 @@ export class Animes implements OnInit {
       },
       complete: () => this.#loaderService.hide()
     });
+  }
+
+  loadRandomAnimes(){
+    this.#animeService.getRandomAnimes().subscribe({
+      next: (resp) => {
+        this.randomAnimes.set(resp);
+      }
+    })
   }
 
   loadMoreAnimes() {
@@ -199,4 +211,5 @@ export class Animes implements OnInit {
     this.search.set('');
     this.loadAnimes()
   }
+
 }

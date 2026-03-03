@@ -2,6 +2,8 @@
   <div class="page-content">
     <app-header-admin/>
 
+    <app-anime-carousel [animes]="randomAnimes()" (watchNow)="viewAnime($event)"/>
+
     <app-search-anime
       (search)="onSearch($event)"
       (clearSearch)="onClearSearch()"

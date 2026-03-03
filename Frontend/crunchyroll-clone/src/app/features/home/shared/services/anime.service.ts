@@ -46,4 +46,8 @@ export class AnimeService extends AnimeServiceAbstract {
   override getAnime(animeUuid: string): Observable<any> {
     return this.#httpClient.get<any>(`${this.API_ENDPOINT}/${animeUuid}`);
   }
+
+  override getRandomAnimes(): Observable<any> {
+    return this.#httpClient.get<any>(`${this.API_ENDPOINT}/get-random-animes`);
+  }
 }

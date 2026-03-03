@@ -14,4 +14,6 @@ export abstract class AnimeServiceAbstract{
   abstract updateAnime(animeUuid: string, animeData: any): Observable<any>;
 
   abstract getAnime(animeUuid: string): Observable<any>;
+
+  abstract getRandomAnimes(): Observable<any>;
 }

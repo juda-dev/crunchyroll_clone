@@ -1,0 +1,68 @@
+<div class="anime-carousel">
+  @if (animes().length > 0) {
+    <div class="carousel-container">
+      <div class="slide-wrapper">
+        @for (anime of animes(); track anime.id; let i = $index) {
+          <div class="slide" [class.active]="i === currentIndex()" [style.transform]="'translateX(' + ((i - currentIndex()) * 100) + '%)'">
+            <div class="slide-background" [style.backgroundImage]="getBannerUrl(anime) ? 'url(' + getBannerUrl(anime) + ')' : 'url(https://ui-avatars.com/api/?name=' + anime.name + '&background=f47521&color=fff&size=600)'"></div>
+            <div class="slide-overlay"></div>
+
+            <div class="slide-content">
+              <div class="anime-info">
+                <h1 class="anime-title">{{ anime.name }}</h1>
+                <p class="anime-description">{{ anime.description || 'No description available' }}</p>
+
+                @if (anime.categories && anime.categories.length > 0) {
+                  <div class="categories-container">
+                    <span class="category-label">Categories:</span>
+                    <div class="categories-list">
+                      @for (category of anime.categories; track category) {
+                        <span class="category-tag">{{ category }}</span>
+                      }
+                    </div>
+                  </div>
+                }
+
+                <button class="watch-now-btn" (click)="onWatchNow(anime)">
+                  <span class="watch-now-text">Watch Now</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="carousel-controls">
+        <button class="nav-btn prev-btn" (click)="prevSlide()" aria-label="Previous slide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <button class="nav-btn next-btn" (click)="nextSlide()" aria-label="Next slide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="carousel-indicators">
+        @for (anime of animes(); track anime.id; let i = $index) {
+          <button
+            class="indicator"
+            [class.active]="i === currentIndex()"
+            (click)="goToSlide(i)"
+            [attr.aria-label]="'Go to slide ' + (i + 1)"
+          ></button>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="empty-carousel">
+      <div class="empty-message">No animes available for carousel</div>
+    </div>
+  }
+</div>
