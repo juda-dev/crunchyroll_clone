@@ -180,4 +180,18 @@ export class Anime implements OnInit {
       }
     });
   }
+
+  playVideo(video: any) {
+    forkJoin({
+      videoBlob: this.#fileService.serveVideo(video.src),
+      posterBlob: this.#fileService.serveImage(video.poster)
+    }).subscribe({
+      next: ({ videoBlob, posterBlob }) => {
+        const videoUrl = URL.createObjectURL(videoBlob);
+        const posterUrl = URL.createObjectURL(posterBlob);
+        this.#dialogService.video(videoUrl, video.title, this.animeName(), posterUrl);
+      },
+      error: () => this.#notification.error('Error loading video or image')
+    });
+  }
 }

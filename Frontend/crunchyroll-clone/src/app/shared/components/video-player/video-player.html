@@ -1,0 +1,114 @@
+<div class="video-player-container" [class.fullscreen]="isFullscreen()" (mousemove)="showControlsAndReset()" (mouseleave)="hideControls()">
+  <div class="video-backdrop" (click)="closePlayer()"></div>
+
+  <div class="video-wrapper">
+    <div class="video-header">
+      <button class="close-btn" (click)="closePlayer()" aria-label="Close video player">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="video-title">
+        <h2>{{ title() }}</h2>
+        <span class="episode-label">{{ animeName() }}</span>
+      </div>
+    </div>
+
+    <div class="video-content">
+      <video
+        #videoElement
+        class="video-element"
+        [poster]="posterUrl()"
+        (click)="togglePlay()"
+      >
+        <source [src]="videoUrl()" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="video-controls-overlay" [class.show-controls]="showControls()">
+        <div class="controls-top">
+          <div class="progress-bar-container" (click)="seekTo($event)">
+            <div class="progress-bar-background"></div>
+            <div class="progress-bar-fill" [style.width.%]="duration() > 0 ? (currentTime() / duration()) * 100 : 0"></div>
+            <div class="progress-bar-thumb" [style.left.%]="duration() > 0 ? (currentTime() / duration()) * 100 : 0"></div>
+          </div>
+        </div>
+
+        <div class="controls-bottom">
+          <div class="left-controls">
+            <button class="control-btn" (click)="togglePlay()" aria-label="Play/Pause">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                @if (isPlaying()) {
+                  <path d="M6 19H10V5H6V19ZM14 5V19H18V5H14Z" fill="currentColor"/>
+                } @else {
+                  <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                }
+              </svg>
+            </button>
+
+            <button class="control-btn" (click)="seekBackward()" aria-label="Rewind 10 seconds">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.99 5V1L7 6L11.99 11V7C15.58 7 18.5 9.91 18.5 13.5C18.5 17.09 15.58 20 11.99 20C8.4 20 5.5 17.09 5.5 13.5C5.5 11.67 6.3 10.02 7.62 8.85L9.19 10.42C8.45 11.18 8 12.27 8 13.5C8 16.09 10.34 18 11.99 18C13.64 18 16 16.09 16 13.5C16 10.91 13.66 9 11.99 9V5Z" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <button class="control-btn" (click)="seekForward()" aria-label="Forward 10 seconds">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.01 5V1L17 6L12.01 11V7C8.42 7 5.5 9.91 5.5 13.5C5.5 17.09 8.42 20 12.01 20C15.6 20 18.5 17.09 18.5 13.5C18.5 11.67 17.7 10.02 16.38 8.85L14.81 10.42C15.55 11.18 16 12.27 16 13.5C16 16.09 13.66 18 12.01 18C10.36 18 8 16.09 8 13.5C8 10.91 10.34 9 12.01 9V5Z" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <div class="volume-control">
+              <button class="control-btn" (click)="toggleMute()" aria-label="Mute/Unmute">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  @if (isMuted() || volume() === 0) {
+                    <path d="M16.5 12C16.5 10.23 15.48 8.71 14 7.97V10.18L16.45 12.63C16.48 12.43 16.5 12.22 16.5 12ZM19 12C19 12.94 18.8 13.82 18.46 14.64L19.97 16.15C20.63 14.91 21 13.5 21 12C21 7.72 18.01 4.14 14 3.23V5.29C16.89 6.15 19 8.83 19 12ZM4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.52C15.58 18.04 14.83 18.45 14 18.7V20.77C15.38 20.45 16.63 19.82 17.69 18.95L19.73 21L21 19.73L12 10.73L4.27 3ZM12 4L9.91 6.09L12 8.18V4Z" fill="currentColor"/>
+                  } @else {
+                    <path d="M3 9V15H7L12 20V4L7 9H3ZM16.5 12C16.5 10.23 15.48 8.71 14 7.97V16.02C15.48 15.29 16.5 13.77 16.5 12ZM14 3.23V5.29C16.89 6.15 19 8.83 19 12C19 15.17 16.89 17.85 14 18.71V20.77C17.01 19.86 20 16.28 20 12C20 7.72 17.01 4.14 14 3.23Z" fill="currentColor"/>
+                  }
+                </svg>
+              </button>
+              <input
+                type="range"
+                class="volume-slider"
+                [value]="volume()"
+                min="0"
+                max="1"
+                step="0.01"
+                (input)="setVolume($any($event.target).valueAsNumber)"
+                aria-label="Volume"
+              >
+            </div>
+
+            <div class="time-display">
+              <span>{{ formatTime(currentTime()) }}</span>
+              <span class="time-separator">/</span>
+              <span>{{ formatTime(duration()) }}</span>
+            </div>
+          </div>
+
+          <div class="right-controls">
+            <button class="control-btn" (click)="toggleFullscreen()" aria-label="Toggle fullscreen">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                @if (isFullscreen()) {
+                  <path d="M5 16H8V19H10V14H5V16ZM8 8H5V10H10V5H8V8ZM16 19H19V16H21V21H16V19ZM19 8V5H16V10H21V8H19Z" fill="currentColor"/>
+                } @else {
+                  <path d="M7 14H5V19H10V17H7V14ZM5 10H7V7H10V5H5V10ZM17 17H14V19H19V14H17V17ZM14 5V7H17V10H19V5H14Z" fill="currentColor"/>
+                }
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      @if (!isPlaying()) {
+        <div class="play-center-overlay" (click)="togglePlay()">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+          </svg>
+        </div>
+      }
+    </div>
+  </div>
+</div>

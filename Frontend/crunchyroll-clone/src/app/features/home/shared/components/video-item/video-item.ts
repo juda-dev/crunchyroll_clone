@@ -21,8 +21,10 @@ export class VideoItem {
 
   updateVideo = output<any>();
   deleteVideo = output<any>();
+  playVideoOutput = output<any>();
 
-  playVideo() {
+  playVideo(video: any) {
+    this.playVideoOutput.emit(video);
   }
 
   editVideo(video: any) {

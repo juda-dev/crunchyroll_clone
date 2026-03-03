@@ -74,3 +74,10 @@ html, body {
   padding: 0 !important;
   overflow: visible !important;
 }
+
+.video-player-dialog .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}

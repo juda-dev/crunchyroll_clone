@@ -18,7 +18,7 @@
     <h3 class="overlay-video-title">{{ video().title }}</h3>
     <p class="overlay-description">{{ video().description }}</p>
     <div class="action-buttons">
-      <button mat-icon-button class="action-btn play-btn" (click)="playVideo()">
+      <button mat-icon-button class="action-btn play-btn" (click)="playVideo(video())">
         <mat-icon>play_arrow</mat-icon>
       </button>
       <button mat-icon-button class="action-btn edit-btn" (click)="editVideo(video())">
