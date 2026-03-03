@@ -14,14 +14,14 @@ import dev.juda.repository.CategoryRepository;
 import dev.juda.service.AnimeService;
 import dev.juda.util.PaginationUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,5 +87,35 @@ public class AnimeServiceImpl implements AnimeService {
     @Transactional(readOnly = true)
     public AnimeResponse getAnime(UUID id) {
         return animeRepository.findById(id).map(AnimeMapper::entityToResponse).orElseThrow(AnimeNotFoundException::new);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<AnimeResponse> getRandomAnimes() {
+        long totalAnimes = animeRepository.count();
+
+        List<AnimeResponse> result = new ArrayList<>();
+
+        if (totalAnimes <= 0) throw new AnimeNotFoundException();
+
+        Random random = new Random();
+        Set<Integer> randomIndices = new HashSet<>();
+
+        int quantitySearch = 4;
+
+        while(quantitySearch > totalAnimes) quantitySearch--;
+
+        while (randomIndices.size() < quantitySearch) {
+            int randomIdx = random.nextInt((int) totalAnimes);
+            randomIndices.add(randomIdx);
+        }
+
+        randomIndices.forEach(idx -> {
+            Page<AnimeResponse> page = animeRepository.findAll(PageRequest.of(idx, 1)).map(AnimeMapper::entityToResponse);
+
+            if (page.hasContent()) result.add(page.getContent().getFirst());
+        });
+
+        return result;
     }
 }

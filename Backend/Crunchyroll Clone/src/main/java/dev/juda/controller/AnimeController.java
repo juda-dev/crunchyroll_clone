@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -52,5 +53,11 @@ public class AnimeController {
     @PreAuthorize("hasRole('ADMIN')")
     public MessageResponse deleteAnime(@PathVariable UUID id) {
         return animeService.deleteAnime(id);
+    }
+
+    @GetMapping("/get-random-animes")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public List<AnimeResponse> getRandomAnimes() {
+        return animeService.getRandomAnimes();
     }
 }

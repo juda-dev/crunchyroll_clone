@@ -5,6 +5,7 @@ import dev.juda.model.dto.response.AnimeResponse;
 import dev.juda.model.dto.response.MessageResponse;
 import dev.juda.model.dto.response.PageResponse;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface AnimeService {
@@ -17,4 +18,7 @@ public interface AnimeService {
     MessageResponse deleteAnime(UUID id);
 
     AnimeResponse getAnime(UUID id);
+
+    List<AnimeResponse> getRandomAnimes();
+
 }
