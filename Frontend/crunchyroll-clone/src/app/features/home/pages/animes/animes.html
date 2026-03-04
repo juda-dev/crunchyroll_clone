@@ -19,10 +19,12 @@
             <app-anime-item [anime]="anime" (removeAnime)="removeAnime($event)" (editAnime)="editAnime($event)" (viewAnime)="viewAnime($event)"/>
           }
         </div>
-        <button class="custom-fab" (click)="openAnimeModal()">
-          <span class="icon">+</span>
-          <span class="text">Add New Anime</span>
-        </button>
+        @if (isAdmin) {
+          <button class="custom-fab" (click)="openAnimeModal()">
+            <span class="icon">+</span>
+            <span class="text">Add New Anime</span>
+          </button>
+        }
       } @else if (!(animes().length > 0) && !isLoading()) {
         <div class="empty-state">
           <div class="empty-state-icon">

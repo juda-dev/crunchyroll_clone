@@ -27,6 +27,7 @@ export class HeaderAdmin {
   readonly #tokenStorageService = inject(TokenStorageService);
 
   readonly user = this.#tokenStorageService.currentUser;
+  isAdmin = this.#tokenStorageService.currentRoleUser == 'ADMIN';
 
   navigateHome() {
     this.#router.navigate([HOME_PAGES.HOME, HOME_PAGES.ANIMES])

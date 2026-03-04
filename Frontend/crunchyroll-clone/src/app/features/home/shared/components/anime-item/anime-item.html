@@ -14,12 +14,16 @@
       <button mat-icon-button class="action-btn play-btn" (click)="view(anime())">
         <mat-icon>play_arrow</mat-icon>
       </button>
-      <button mat-icon-button class="action-btn edit-btn" (click)="edit(anime())">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button class="action-btn delete-btn" (click)="remove(anime())">
-        <mat-icon>delete</mat-icon>
-      </button>
+
+      @if(isAdmin){
+        <button mat-icon-button class="action-btn edit-btn" (click)="edit(anime())">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="action-btn delete-btn" (click)="remove(anime())">
+          <mat-icon>delete</mat-icon>
+        </button>
+      }
+
     </div>
   </div>
 </div>

@@ -15,6 +15,7 @@ import {LoadingMoreLoaderService} from '../../../../shared/loaders/loading-more/
 import {FilesService} from '../../shared/services/files.service';
 import {Router} from '@angular/router';
 import {HOME_PAGES} from '../../home.routes';
+import {TokenStorageService} from '../../../../shared/services/token-storage.service';
 
 @Component({
   selector: 'app-animes',
@@ -39,11 +40,13 @@ export class Animes implements OnInit {
   readonly #dialogService = inject(DialogService);
   readonly #loaderService = inject(LoadingMoreLoaderService);
   readonly #fileService = inject(FilesService);
+  readonly #tokenStorageService = inject(TokenStorageService);
   readonly #router = inject(Router);
 
   animes: any = signal<any>([]);
   randomAnimes: any = signal<any>([]);
   loadedAnimesIds = new Set<string>();
+  isAdmin = this.#tokenStorageService.currentRoleUser == 'ADMIN';
 
   isLoading = this.#loaderService.isLoading;
 

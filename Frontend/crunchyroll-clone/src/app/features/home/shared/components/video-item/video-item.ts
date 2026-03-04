@@ -3,6 +3,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {FilesService} from '../../services/files.service';
 import {ImageViewer} from '../../../../../shared/components/image-viewer/image-viewer';
+import {TokenStorageService} from '../../../../../shared/services/token-storage.service';
 
 @Component({
   selector: 'app-video-item',
@@ -15,6 +16,9 @@ import {ImageViewer} from '../../../../../shared/components/image-viewer/image-v
   styleUrl: './video-item.css',
 })
 export class VideoItem {
+  readonly #tokenStorageService = inject(TokenStorageService);
+  isAdmin = this.#tokenStorageService.currentRoleUser == 'ADMIN';
+
   animeName = input.required<string>();
   video = input.required<any>();
   readonly #fileService = inject(FilesService);

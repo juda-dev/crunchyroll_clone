@@ -19,6 +19,7 @@ export class AuthService extends AuthServiceAbstract {
         map((resp: any) => {
           this.#tokenStorageService.token = resp.token;
           this.#tokenStorageService.currentUser = resp.email;
+          this.#tokenStorageService.currentRoleUser = resp.role;
           return resp;
         })
       )

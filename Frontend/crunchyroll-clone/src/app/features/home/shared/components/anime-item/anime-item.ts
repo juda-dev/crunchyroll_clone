@@ -1,7 +1,8 @@
-import {Component, input, output} from '@angular/core';
+import {Component, inject, input, output} from '@angular/core';
 import {MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {ImageViewer} from '../../../../../shared/components/image-viewer/image-viewer';
+import {TokenStorageService} from '../../../../../shared/services/token-storage.service';
 
 @Component({
   selector: 'app-anime-item',
@@ -14,6 +15,9 @@ import {ImageViewer} from '../../../../../shared/components/image-viewer/image-v
   styleUrl: './anime-item.css',
 })
 export class AnimeItem {
+  readonly #tokenStorageService = inject(TokenStorageService);
+  isAdmin = this.#tokenStorageService.currentRoleUser == 'ADMIN';
+
   readonly anime = input.required<any>();
   removeAnime = output<any>();
   editAnime = output<any>();

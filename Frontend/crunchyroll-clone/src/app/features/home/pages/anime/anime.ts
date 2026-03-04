@@ -12,6 +12,7 @@ import {rxResource} from '@angular/core/rxjs-interop';
 import {catchError, EMPTY, forkJoin, NEVER, tap} from 'rxjs';
 import {FilesService} from '../../shared/services/files.service';
 import {DialogService} from '../../../../shared/services/dialog.service';
+import {TokenStorageService} from '../../../../shared/services/token-storage.service';
 
 @Component({
   selector: 'app-anime',
@@ -29,12 +30,14 @@ export class Anime implements OnInit {
   readonly #loaderService = inject(LoadingMoreLoaderService);
   readonly #fileService = inject(FilesService);
   readonly #dialogService = inject(DialogService);
+  readonly #tokenStorageService = inject(TokenStorageService);
   readonly dialog = inject(MatDialog);
   readonly #notification = inject(NotificationService);
   animeName = signal<string>('');
 
   videos: any = signal<any>([]);
   loadedVideosIds = new Set<string>();
+  isAdmin = this.#tokenStorageService.currentRoleUser == 'ADMIN';
 
   isLoading = this.#loaderService.isLoading;
 

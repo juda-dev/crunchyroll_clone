@@ -15,6 +15,10 @@ export class TokenStorageService {
   readonly user = computed(() => this.#user());
   #currentUser = localStorage.getItem('user') || '';
 
+  #roleUser = signal<string>('');
+  readonly roleUser = computed(() => this.#roleUser());
+  #roleCurrentUser = localStorage.getItem('roleUser') || '';
+
   constructor() {
     if (this.token) {
       this.#isLogin.set(true);
@@ -41,9 +45,19 @@ export class TokenStorageService {
     return this.#currentUser;
   }
 
+  set currentRoleUser(roleUser: string){
+    this.#roleCurrentUser = roleUser;
+    localStorage.setItem('roleUser', roleUser);
+  }
+
+  get currentRoleUser(){
+    return this.#roleCurrentUser;
+  }
+
   logout() {
     this.token = '';
     this.currentUser = '';
+    this.currentRoleUser = '';
     this.#router.navigate(['/']);
   }
 }

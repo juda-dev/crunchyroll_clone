@@ -7,8 +7,12 @@
 
     <nav class="nav-container">
       <button mat-button class="nav-btn" (click)="navigateHome()">Animes</button>
-      <button mat-button class="nav-btn">Categories</button>
-      <button mat-button class="nav-btn">Users</button>
+
+      @if (isAdmin) {
+        <button mat-button class="nav-btn">Categories</button>
+        <button mat-button class="nav-btn">Users</button>
+      }
+
     </nav>
   </div>
 
