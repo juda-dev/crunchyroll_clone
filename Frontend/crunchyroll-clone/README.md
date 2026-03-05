@@ -13,256 +13,256 @@
 
 ---
 
-## 📖 Descripción
+## 📖 Description
 
-**Crunchyroll Clone** es una aplicación frontend **completa y funcional** desarrollada con **Angular 21.1.14** que emula la interfaz y funcionalidades principales de la plataforma de streaming de anime **Crunchyroll**. Este proyecto ha sido creado **exclusivamente con fines académicos y de portafolio**, con el objetivo de demostrar habilidades en desarrollo full-stack, arquitectura de aplicaciones modernas y consumo de APIs RESTful. La aplicación incluye **todas las funcionalidades básicas de una plataforma de streaming real**: autenticación completa, gestión de contenido, reproducción de videos y una interfaz de usuario profesional.
+**Crunchyroll Clone** is a **complete and functional** frontend application developed with **Angular 21.1.14** that emulates the interface and main functionalities of the anime streaming platform **Crunchyroll**. This project has been created **exclusively for academic and portfolio purposes**, with the goal of demonstrating skills in full-stack development, modern application architecture, and RESTful API consumption. The application includes **all the basic functionalities of a real streaming platform**: complete authentication, content management, video playback, and a professional user interface.
 
-El cliente frontend se conecta a una **API RESTful robusta** construida con **Java 21, Spring Boot 3.5.9 y MySQL 8.0.46**, formando un ecosistema completo full-stack que simula un servicio de streaming real con todas las funcionalidades básicas de una plataforma de streaming profesional.
+The frontend client connects to a **robust RESTful API** built with **Java 21, Spring Boot 3.5.9 and MySQL 8.0.46**, forming a complete full-stack ecosystem that simulates a real streaming service with all the basic functionalities of a professional streaming platform.
 
-> **Nota de Integración:** Este frontend está diseñado para funcionar en conjunto con la API de backend. Para una experiencia completa, asegúrate de tener el servidor Spring Boot en ejecución.
+> **Integration Note:** This frontend is designed to work together with the backend API. For a complete experience, make sure to have the Spring Boot server running.
 
 ---
 
-## ⚖️ Disclaimer Legal
+## ⚖️ Legal Disclaimer
 
 <div align="center">
 
-⚠️ **AVISO IMPORTANTE** ⚠️
+⚠️ **IMPORTANT NOTICE** ⚠️
 
 </div>
 
-> **Este proyecto es estrictamente académico y de portafolio.** No tiene fines comerciales, no genera ingresos y no pretende infringir derechos de autor, marcas registradas o propiedad intelectual de **Crunchyroll** o cualquier otra entidad. El uso de nombres, logotipos o referencias visuales similares tiene únicamente propósitos educativos y de demostración técnica.
+> **This project is strictly academic and for portfolio purposes.** It has no commercial intent, does not generate income, and does not intend to infringe copyright, trademarks, or intellectual property of **Crunchyroll** or any other entity. The use of similar names, logos, or visual references is solely for educational and technical demonstration purposes.
 >
-> **Crunchyroll** es una marca registrada de **Crunchyroll, LLC** (subsidiaria de **Sony Pictures Entertainment**). Este proyecto no está afiliado, respaldado ni autorizado por Crunchyroll o sus empresas relacionadas.
+> **Crunchyroll** is a registered trademark of **Crunchyroll, LLC** (a subsidiary of **Sony Pictures Entertainment**). This project is not affiliated with, endorsed by, or authorized by Crunchyroll or its related companies.
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Technologies Used
 
-### 🎨 Stack Frontend (Cliente Angular)
+### 🎨 Frontend Stack (Angular Client)
 
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
-| ![Angular](https://img.shields.io/badge/Angular-red?logo=angular) | 21.1.14 | Framework principal para aplicación SPA |
-| ![TypeScript](https://img.shields.io/badge/TypeScript-blue?logo=typescript) | ~5.9.2 | Lenguaje tipado para desarrollo robusto |
-| ![HTML5](https://img.shields.io/badge/HTML5-orange?logo=html5) | HTML5 | Estructura semántica de componentes |
-| ![CSS3/SCSS](https://img.shields.io/badge/CSS3/SCSS-purple?logo=css3) | CSS3/SCSS | Estilos y diseño responsivo |
-| ![RxJS](https://img.shields.io/badge/RxJS-pink?logo=reactivex) | ~7.8.0 | Programación reactiva y manejo de streams |
-| ![Angular Material](https://img.shields.io/badge/Angular_Material-3F51B5?logo=angular) | ~21.1.4 | Componentes UI Material Design |
-| ![Node.js](https://img.shields.io/badge/Node.js-green?logo=node.js) | ≥18.0.0 | Entorno de ejecución y gestión de paquetes |
-| ![npm](https://img.shields.io/badge/npm-CB3837?logo=npm) | 11.7.0 | Gestor de paquetes y dependencias |
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| ![Angular](https://img.shields.io/badge/Angular-red?logo=angular) | 21.1.14 | Main framework for SPA application |
+| ![TypeScript](https://img.shields.io/badge/TypeScript-blue?logo=typescript) | ~5.9.2 | Typed language for robust development |
+| ![HTML5](https://img.shields.io/badge/HTML5-orange?logo=html5) | HTML5 | Semantic component structure |
+| ![CSS3/SCSS](https://img.shields.io/badge/CSS3/SCSS-purple?logo=css3) | CSS3/SCSS | Responsive styles and design |
+| ![RxJS](https://img.shields.io/badge/RxJS-pink?logo=reactivex) | ~7.8.0 | Reactive programming and stream handling |
+| ![Angular Material](https://img.shields.io/badge/Angular_Material-3F51B5?logo=angular) | ~21.1.4 | Material Design UI components |
+| ![Node.js](https://img.shields.io/badge/Node.js-green?logo=node.js) | ≥18.0.0 | Runtime environment and package management |
+| ![npm](https://img.shields.io/badge/npm-CB3837?logo=npm) | 11.7.0 | Package and dependency manager |
 
-### ⚙️ Stack Backend (API RESTful - Mención Honorífica)
+### ⚙️ Backend Stack (RESTful API - Honorable Mention)
 
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
-| ![Java](https://img.shields.io/badge/Java-ED8B00?logo=openjdk) | 21 | Lenguaje principal del backend |
-| ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?logo=springboot) | 3.5.9 | Framework para microservicios REST |
-| ![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql) | 8.0.46 | Sistema de gestión de base de datos |
-| ![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?logo=springsecurity) | 6.x | Autenticación y autorización |
-| ![JPA/Hibernate](https://img.shields.io/badge/JPA/Hibernate-59666C?logo=hibernate) | 3.x | ORM y persistencia de datos |
-
----
-
-## 📊 Estado del Proyecto y Características
-
-### ✅ Funcionalidades Completamente Implementadas
-
-#### 🎌 **Módulo de Animes (Completo)**
-- **Home Page con Banner Dinámico**: 4 animes aleatorios destacados en banner rotativo
-- **Listado Completo de Animes**: Visualización paginada y filtrada de catálogo completo
-- **Tarjetas de Anime Interactivas**: Componentes reutilizables con información detallada (título, imagen, sinopsis, rating, géneros)
-- **Búsqueda de animes**: Sistema de búsqueda con filtros dinámicos por título y descripción
-- **Vista Detallada de Anime**: Página individual con información completa, episodios disponibles y metadatos
-- **Reproducción de videos**: Reproductor de videos del almacenamiento
-- **Gestión CRUD de Animes**: Panel de administración para crear, leer, actualizar y eliminar animes
-- **Carga Dinámica Avanzada**: Implementación de lazy loading, skeletons y optimización de imágenes
-- **Scroll infinito**: Implementación de scroll infinito para la carga de animes y videos, haciendo uso de la paginación de la api.
-
-#### 👤 **Sistema de Autenticación y Usuarios (Completo)**
-- **Registro de Usuario**: Formulario completo con validaciones en tiempo real
-- **Inicio de Sesión**: Autenticación segura con tokens JWT
-- **Activación de Cuenta por Email**: Sistema de verificación mediante correo electrónico
-- **Recuperación de Contraseña**: Flujo completo de "Olvidé mi contraseña" con tokens temporales
-- **Logout Seguro**: Cierre de sesión con limpieza de tokens y redirección
-- **Protección de Rutas**: Guards de autenticación para áreas restringidas
-
-#### 🎥 **Sistema de Videos y Reproducción (Completo)**
-- **Subida de Videos para Animes**: Gestión de episodios con formularios dedicados
-- **Reproductor de Video Integrado**: Componente personalizado con controles de reproducción
-- **Listado de Episodios**: Organización por temporadas y números de episodio
-- **Gestión CRUD de Videos**: Panel de administración para gestionar episodios
-
-#### 🏠 **Home Page y Navegación (Completo)**
-- **Banner Hero Dinámico**: 4 animes aleatorios con transiciones suaves
-- **Navegación Intuitiva**: Menú responsive con todas las secciones accesibles
-
-### 🚀 Próximas Mejoras y Optimizaciones
-
-#### 🔄 **En Planeación para Futuras Versiones**
-
-1. **🛠️ Módulos de administración**
-   - Modulo de manejo de usuarios
-   - Módulo de manejo de categorías
-
-2. **🌟 Sistema de Favoritos y Listas**
-   - Creación de listas personalizadas
-   - Marcado de animes como favoritos
-   - Compartir listas con otros usuarios
-
-3. **📊 Sistema de Reseñas y Rating**
-   - Comentarios y calificaciones por usuarios
-   - Sistema de votación y "me gusta"
-   - Moderación de contenido generado por usuarios
-
-4. **🔔 Notificaciones y Alertas**
-   - Notificaciones de nuevos episodios
-   - Recordatorios de series en progreso
-   - Sistema de notificaciones en tiempo real
-
-5. **🌐 Internacionalización (i18n)**
-   - Soporte para múltiples idiomas
-   - Localización de interfaz y contenido
-   - Sistema de traducción dinámica
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| ![Java](https://img.shields.io/badge/Java-ED8B00?logo=openjdk) | 21 | Main backend language |
+| ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?logo=springboot) | 3.5.9 | Framework for REST microservices |
+| ![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql) | 8.0.46 | Database management system |
+| ![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?logo=springsecurity) | 6.x | Authentication and authorization |
+| ![JPA/Hibernate](https://img.shields.io/badge/JPA/Hibernate-59666C?logo=hibernate) | 3.x | ORM and data persistence |
 
 ---
 
-## 🚀 Guía de Instalación y Despliegue Local
+## 📊 Project Status and Features
 
-### Prerrequisitos
+### ✅ Fully Implemented Functionalities
 
-- **Node.js** (versión 18 o superior)
-- **npm** (versión 11.7.0 o superior) - incluye Angular CLI como dependencia de desarrollo
-- **Git** (para clonar el repositorio)
-- **Angular CLI** (instalado globalmente opcional, pero incluido en dependencias del proyecto)
-- **Backend API** (Spring Boot) en ejecución (opcional para desarrollo local)
+#### 🎌 **Anime Module (Complete)**
+- **Home Page with Dynamic Banner**: 4 random animes featured in rotating banner
+- **Complete Anime Listing**: Paginated and filtered view of complete catalog
+- **Interactive Anime Cards**: Reusable components with detailed information (title, image, synopsis, rating, genres)
+- **Anime Search**: Search system with dynamic filters by title and description
+- **Anime Detail View**: Individual page with complete information, available episodes, and metadata
+- **Video Playback**: Video player for storage videos
+- **Anime CRUD Management**: Administration panel to create, read, update, and delete animes
+- **Advanced Dynamic Loading**: Implementation of lazy loading, skeletons, and image optimization
+- **Infinite Scroll**: Infinite scroll implementation for loading animes and videos, using API pagination.
 
-> **Nota sobre Angular CLI:** El Angular CLI viene incluido como dependencia de desarrollo en el proyecto. Puedes usar los comandos `ng` a través de `npx` (ej: `npx ng serve`) o instalar Angular CLI globalmente con `npm install -g @angular/cli` para usar `ng` directamente.
+#### 👤 **Authentication and User System (Complete)**
+- **User Registration**: Complete form with real-time validations
+- **Login**: Secure authentication with JWT tokens
+- **Email Account Activation**: Verification system via email
+- **Password Recovery**: Complete "Forgot Password" flow with temporary tokens
+- **Secure Logout**: Session termination with token cleanup and redirection
+- **Route Protection**: Authentication guards for restricted areas
 
-### Pasos para Configurar el Entorno Local
+#### 🎥 **Video System and Playback (Complete)**
+- **Video Upload for Animes**: Episode management with dedicated forms
+- **Integrated Video Player**: Custom component with playback controls
+- **Episode Listing**: Organization by seasons and episode numbers
+- **Video CRUD Management**: Administration panel for managing episodes
 
-1. **Clonar el Repositorio**
+#### 🏠 **Home Page and Navigation (Complete)**
+- **Dynamic Hero Banner**: 4 random animes with smooth transitions
+- **Intuitive Navigation**: Responsive menu with all sections accessible
+
+### 🚀 Upcoming Improvements and Optimizations
+
+#### 🔄 **Planned for Future Versions**
+
+1. **🛠️ Administration Modules**
+   - User management module
+   - Category management module
+
+2. **🌟 Favorites and Lists System**
+   - Creation of personalized lists
+   - Marking animes as favorites
+   - Sharing lists with other users
+
+3. **📊 Reviews and Rating System**
+   - User comments and ratings
+   - Voting and "like" system
+   - User-generated content moderation
+
+4. **🔔 Notifications and Alerts**
+   - New episode notifications
+   - Reminders for series in progress
+   - Real-time notification system
+
+5. **🌐 Internationalization (i18n)**
+   - Support for multiple languages
+   - Interface and content localization
+   - Dynamic translation system
+
+---
+
+## 🚀 Local Installation and Deployment Guide
+
+### Prerequisites
+
+- **Node.js** (version 18 or higher)
+- **npm** (version 11.7.0 or higher) - includes Angular CLI as development dependency
+- **Git** (to clone the repository)
+- **Angular CLI** (globally installed optional, but included in project dependencies)
+- **Backend API** (Spring Boot) running (optional for local development)
+
+> **Note about Angular CLI:** Angular CLI comes included as a development dependency in the project. You can use `ng` commands through `npx` (e.g., `npx ng serve`) or install Angular CLI globally with `npm install -g @angular/cli` to use `ng` directly.
+
+### Steps to Set Up the Local Environment
+
+1. **Clone the Repository**
    ```bash
    git clone https://github.com/juda-dev/crunchyroll_clone.git
    cd crunchyroll_clone/Frontend/crunchyroll-clone
    ```
 
-2. **Instalar Dependencias**
+2. **Install Dependencies**
    ```bash
    npm install
    ```
-   *Este comando instalará todas las dependencias necesarias definidas en `package.json`.*
+   *This command will install all necessary dependencies defined in `package.json`.*
 
-3. **Configurar Variables de Entorno (Opcional)**
+3. **Configure Environment Variables (Optional)**
    ```bash
-   # Crear archivo de entorno para configurar la URL de la API
-   # Si no existe .env.example, crea un archivo .env manualmente con:
+   # Create environment file to configure API URL
+   # If .env.example doesn't exist, create a .env file manually with:
    # API_URL=http://localhost:8080/api
-   # (ajusta el puerto según tu configuración del backend)
+   # (adjust the port according to your backend configuration)
    ```
 
-4. **Iniciar el Servidor de Desarrollo**
+4. **Start Development Server**
    ```bash
-   # Opción 1: Usando npm script (recomendado)
+   # Option 1: Using npm script (recommended)
    npm start
    
-   # Opción 2: Usando Angular CLI directamente
+   # Option 2: Using Angular CLI directly
    npx ng serve
    
-   # Opción 3: Si tienes Angular CLI instalado globalmente
+   # Option 3: If you have Angular CLI installed globally
    ng serve
    ```
 
-5. **Acceder a la Aplicación**
-   - Abre tu navegador web
-   - Navega a: `http://localhost:4200`
-   - ¡La aplicación estará funcionando!
+5. **Access the Application**
+   - Open your web browser
+   - Navigate to: `http://localhost:4200`
+   - The application will be running!
 
-### ⚠️ Nota Importante sobre la API
+### ⚠️ Important Note about the API
 
-> **Para que todas las funcionalidades funcionen correctamente**, es necesario tener la **API de Spring Boot** en ejecución. El frontend incluye:
-> 1. **Autenticación completa** (login, registro, recuperación, activación por email)
-> 2. **Gestión CRUD de animes y videos**
-> 3. **Reproducción de videos y seguimiento de progreso**
-> 4. **Home page dinámica con banners aleatorios**
+> **For all functionalities to work correctly**, it is necessary to have the **Spring Boot API** running. The frontend includes:
+> 1. **Complete authentication** (login, registration, recovery, email activation)
+> 2. **CRUD management of animes and videos**
+> 3. **Video playback and progress tracking**
+> 4. **Dynamic home page with random banners**
 >
-> Si solo deseas probar la interfaz frontend sin el backend, puedes configurar el entorno para usar datos mockeados, pero algunas funcionalidades requerirán la API activa.
+> If you only want to test the frontend interface without the backend, you can configure the environment to use mocked data, but some functionalities will require the active API.
 
 ---
 
-## 📁 Estructura de Carpetas del Proyecto
+## 📁 Project Folder Structure
 
 ```
 crunchyroll-clone/
 ├── src/
 │   ├── app/
-│   │   ├── features/           # Módulos de funcionalidades
-│   │   │   ├── auth/           # Sistema de Autenticación Completo
-│   │   │   │   ├── components/ # Componentes de formularios
-│   │   │   │   ├── pages/      # Páginas de login/registro
-│   │   │   │   ├── services/   # Servicios de autenticación
-│   │   │   │   └── interfaces/ # Interfaces TypeScript
-│   │   │   ├── home/           # Dashboard principal
-│   │   │   │   ├── admin/      # Panel de administración
-│   │   │   │   ├── pages/      # Páginas de animes
-│   │   │   │   ├── shared/     # Recursos compartidos
-│   │   │   │   └── user/       # Componentes de usuario
-│   │   │   └── landing/        # Página de inicio
-│   │   ├── shared/             # Recursos globales
-│   │   │   ├── components/     # Componentes reutilizables
-│   │   │   ├── guards/         # Guards de rutas
-│   │   │   ├── interceptors/   # Interceptores HTTP
-│   │   │   ├── loaders/        # Componentes de carga
-│   │   │   ├── services/       # Servicios globales
-│   │   │   └── validators/     # Validadores personalizados
-│   │   ├── app.config.ts       # Configuración de la app
-│   │   └── app.routes.ts       # Configuración de rutas
-│   ├── main.ts                 # Punto de entrada
-│   ├── material-theme.scss     # Tema personalizado de Angular Material
-│   └── styles.css              # Estilos globales
-├── public/                     # Archivos públicos
+│   │   ├── features/           # Functionality modules
+│   │   │   ├── auth/           # Complete Authentication System
+│   │   │   │   ├── components/ # Form components
+│   │   │   │   ├── pages/      # Login/register pages
+│   │   │   │   ├── services/   # Authentication services
+│   │   │   │   └── interfaces/ # TypeScript interfaces
+│   │   │   ├── home/           # Main dashboard
+│   │   │   │   ├── admin/      # Administration panel
+│   │   │   │   ├── pages/      # Anime pages
+│   │   │   │   ├── shared/     # Shared resources
+│   │   │   │   └── user/       # User components
+│   │   │   └── landing/        # Landing page
+│   │   ├── shared/             # Global resources
+│   │   │   ├── components/     # Reusable components
+│   │   │   ├── guards/         # Route guards
+│   │   │   ├── interceptors/   # HTTP interceptors
+│   │   │   ├── loaders/        # Loading components
+│   │   │   ├── services/       # Global services
+│   │   │   └── validators/     # Custom validators
+│   │   ├── app.config.ts       # App configuration
+│   │   └── app.routes.ts       # Route configuration
+│   ├── main.ts                 # Entry point
+│   ├── material-theme.scss     # Custom Angular Material theme
+│   └── styles.css              # Global styles
+├── public/                     # Public files
 │   ├── favicon.ico
 │   ├── background-desktop.webp
 │   └── crunchyroll-juda-logo.png
-├── angular.json                # Configuración de Angular CLI
-├── package.json                # Dependencias y scripts
-├── tsconfig.json               # Configuración TypeScript
-└── README.md                   # Este archivo
+├── angular.json                # Angular CLI configuration
+├── package.json                # Dependencies and scripts
+├── tsconfig.json               # TypeScript configuration
+└── README.md                   # This file
 ```
 
 ---
 
-## 👨‍💻 Contacto / Autor
+## 👨‍💻 Contact / Author
 
-**JuDa Dev** - Desarrollador Full Stack
+**JuDa Dev** - Full Stack Developer
 
 [![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:judadev@proton.me)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin)](https://www.linkedin.com/in/judadev/)
 
-> **¿Interesado en colaborar o tienes preguntas?** No dudes en contactarme a través de correo electrónico o LinkedIn.
+> **Interested in collaborating or have questions?** Don't hesitate to contact me via email or LinkedIn.
 
 ---
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está licenciado bajo la **GNU General Public License v3.0 (GPL-3.0)** - ver el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)** - see the [LICENSE](LICENSE) file for details.
 
 ```
-Este programa es software libre: puedes redistribuirlo y/o modificarlo
-bajo los términos de la GNU General Public License como publicada por
-the Free Software Foundation, ya sea la versión 3 de la Licencia, o
-(a tu elección) cualquier versión posterior.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-Este programa se distribuye con la esperanza de que sea útil,
-pero SIN NINGUNA GARANTÍA; sin siquiera la garantía implícita de
-COMERCIABILIDAD o IDONEIDAD PARA UN PROPÓSITO PARTICULAR. Ver la
-GNU General Public License para más detalles.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 ```
 
 ---
 
 <div align="center">
 
-### ✨ **¡Gracias por visitar este proyecto!** ✨
+### ✨ **Thank you for visiting this project!** ✨
 
 </div>
