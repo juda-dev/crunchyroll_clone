@@ -8,7 +8,7 @@
 [![Angular](https://img.shields.io/badge/Angular-21.1.14-red)](https://angular.dev/)
 [![Backend API](https://img.shields.io/badge/Backend-Java%2021%20%7C%20Spring%20Boot%203.5.9-green)](https://spring.io/)
 [![Status](https://img.shields.io/badge/status-functional%20%E2%9C%85-brightgreen)](https://github.com/juda-dev/crunchyroll_clone)
-[![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
 
 ---
