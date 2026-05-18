@@ -16,7 +16,7 @@
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.9-%236DB33F?logo=springboot&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0.46-%234479A1?logo=mysql&logoColor=white)
 [![Status](https://img.shields.io/badge/status-functional%20%E2%9C%85-brightgreen)](https://github.com/juda-dev/crunchyroll_clone)
-[![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 </div>
 
